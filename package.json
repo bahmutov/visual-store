@@ -1,0 +1,81 @@
+{
+  "name": "taste-the-sauce",
+  "description": "Cypress testing tutorial using the SauceLabs sample web app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "js-cookie": "^2.2.1",
+    "react": "^17.0.2",
+    "react-app-polyfill": "^2.0.0",
+    "react-burger-menu": "^3.0.6",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "web-vitals": "^1.1.1"
+  },
+  "devDependencies": {
+    "@bahmutov/cypress-code-coverage": "^2.5.1",
+    "@vitejs/plugin-react": "^4.2.1",
+    "chai-sorted": "^0.2.0",
+    "check-code-coverage": "^1.10.4",
+    "cypress": "^13.7.3",
+    "cypress-data-session": "^2.8.2",
+    "cypress-map": "^1.37.0",
+    "cypress-on-fix": "^1.0.0",
+    "cypress-split": "^1.23.0",
+    "cypress-watch-and-reload": "^1.10.6",
+    "find-cypress-specs": "^1.33.0",
+    "prettier": "^3.2.5",
+    "prop-types": "^15.7.2",
+    "start-server-and-test": "^2.0.0",
+    "stop-only": "^3.3.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.9",
+    "vite-plugin-svgr": "^4.2.0"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "cypress run",
+    "cy:open": "cypress open --e2e",
+    "dev": "start-test 3000 cy:open",
+    "ci": "start-test 3000",
+    "lint": "tsc --noEmit --pretty",
+    "clean": "rm -rf .nyc_output coverage",
+    "cc-badge": "update-badge",
+    "only": "stop-only --folder cypress/e2e --folder src",
+    "only:warn": "stop-only --warn --folder cypress/e2e --folder src",
+    "names": "find-cypress-specs --names",
+    "names:component": "find-cypress-specs --names --component",
+    "badge:tests": "find-cypress-specs --test-counts --update-badge"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "ie 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "ie 11"
+    ]
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js",
+      "src/**/*.jsx"
+    ],
+    "exclude": [
+      "src/**/*.cy.js",
+      "src/service*.js"
+    ]
+  }
+}

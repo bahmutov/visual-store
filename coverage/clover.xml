@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1713367382618" clover="3.2.0">
+  <project timestamp="1713367382618" name="All files">
+    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="4" files="25" classes="25"/>
+    <package name="src">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="index.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/index.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.components">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Button.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/Button.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="CartButton.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/CartButton.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="CartItem.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/CartItem.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="DrawerMenu.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/DrawerMenu.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="ErrorMessage.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/ErrorMessage.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="Footer.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/Footer.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="HeaderContainer.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/HeaderContainer.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="InputError.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/InputError.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="InventoryListItem.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/InventoryListItem.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="PrivateRoute.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/PrivateRoute.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="Select.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/Select.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="SubmitButton.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/components/SubmitButton.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.pages">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Cart.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/pages/Cart.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="CheckOutStepOne.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/pages/CheckOutStepOne.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="CheckOutStepTwo.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/pages/CheckOutStepTwo.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="Finish.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/pages/Finish.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="Inventory.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/pages/Inventory.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="InventoryItem.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/pages/InventoryItem.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="Login.jsx" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/pages/Login.jsx">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.utils">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Constants.js" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/utils/Constants.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="Credentials.js" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/utils/Credentials.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="InventoryData.js" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/utils/InventoryData.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="Sorting.js" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/utils/Sorting.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="shopping-cart.js" path="/Users/glebbahmutov/git/taste-the-sauce-answers-vite/src/utils/shopping-cart.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+  </project>
+</coverage>
