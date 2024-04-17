@@ -1,5 +1,6 @@
 import { LoginInfo } from '.'
 
+// use these selectors to find elements on the Login page
 const selectors = {
   username: '[data-test="username"]',
   password: '[data-test="password"]',
