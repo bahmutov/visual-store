@@ -17,10 +17,8 @@
     "web-vitals": "^1.1.1"
   },
   "devDependencies": {
-    "@bahmutov/cypress-code-coverage": "^2.5.1",
     "@vitejs/plugin-react": "^4.2.1",
     "chai-sorted": "^0.2.0",
-    "check-code-coverage": "^1.10.4",
     "cypress": "^13.7.3",
     "cypress-data-session": "^2.8.2",
     "cypress-map": "^1.37.0",

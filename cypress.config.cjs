@@ -50,8 +50,6 @@ module.exports = defineConfig({
       registerDataSession(on, config)
       // https://github.com/bahmutov/cypress-watch-and-reload
       require('cypress-watch-and-reload/plugins')(on, config)
-      // https://github.com/bahmutov/cypress-code-coverage
-      require('@bahmutov/cypress-code-coverage/plugin')(on, config)
       // IMPORTANT to return the config object
       // with the any changed environment variables
       return config
@@ -59,13 +57,7 @@ module.exports = defineConfig({
   },
 
   component: {
-    setupNodeEvents(on, config) {
-      // https://github.com/bahmutov/cypress-code-coverage
-      require('@bahmutov/cypress-code-coverage/plugin')(on, config)
-      // IMPORTANT to return the config object
-      // with the any changed environment variables
-      return config
-    },
+    // TODO: update to React + Vite
     devServer: {
       framework: 'create-react-app',
       bundler: 'webpack',
