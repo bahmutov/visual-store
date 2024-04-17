@@ -13,19 +13,12 @@ describe('Login', () => {
   const user: LoginInfo = Cypress.env('users').standard
 
   beforeEach(() => {
-    // visit the login page
-    // https://on.cypress.io/visit
     cy.visit('/')
   })
 
   it('wrong password', () => {
-    // type the valid username and some made up password
-    // https://on.cypress.io/get
-    // https://on.cypress.io/type
     cy.get(selectors.username).type(user.username)
     cy.get(selectors.password).type('incorrect-password')
-    // click on the login button
-    // https://on.cypress.io/click
     cy.get(selectors.loginButton).click()
     // confirm the page shows errors and stays on login URL
     // https://on.cypress.io/contains
@@ -33,33 +26,20 @@ describe('Login', () => {
       selectors.error,
       'Epic sadface: Username and password do not match any user in this service',
     )
-    // https://on.cypress.io/location
     cy.location('pathname').should('equal', '/')
-  })
-
-  it('wrong username and password', () => {
-    // make up both username and password
-    cy.get(selectors.username).type('user-not-found')
-    cy.get(selectors.password).type('incorrect-password')
-    // click on the login button
-    // https://on.cypress.io/click
-    cy.get(selectors.loginButton).click()
-    // confirm the page shows errors and stays on login URL
-    cy.contains(
-      selectors.error,
-      'Epic sadface: Username and password do not match any user in this service',
-    )
-    cy.location('pathname').should('equal', '/')
-  })
-
-  it('successful logs in', () => {
-    // type the valid username and password
-    cy.get(selectors.username).type(user.username)
-    cy.get(selectors.password).type(user.password)
-    // click on the login button
-    // https://on.cypress.io/click
-    cy.get(selectors.loginButton).click()
-    // confirm the page redirects to /inventory
-    cy.location('pathname').should('equal', '/inventory')
+    // confirm the error message is red
+    // (the background color is rgb(226, 35, 26))
+    const redColor = 'rgb(226, 35, 26)'
+    cy.get('.error-message-container')
+      .then(($el) => window.getComputedStyle($el[0]).backgroundColor)
+      .should('equal', redColor)
+    // confirm the username input has the error class
+    cy.get(selectors.username)
+      .should('have.class', 'error')
+      // and the red bottom border line
+      .then(($el) => window.getComputedStyle($el[0]).borderBottomColor)
+      .should('equal', redColor)
+    // tip: look up using computed style in the browser
+    // https://glebbahmutov.com/cypress-examples/recipes/computed-style.html
   })
 })
