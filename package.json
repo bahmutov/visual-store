@@ -18,7 +18,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
-    "chai-sorted": "^0.2.0",
     "cypress": "^13.7.3",
     "cypress-data-session": "^2.8.2",
     "cypress-map": "^1.37.0",

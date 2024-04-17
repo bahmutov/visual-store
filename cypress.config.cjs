@@ -35,10 +35,6 @@ module.exports = defineConfig({
       'cypress-watch-and-reload': {
         watch: ['src/**'],
       },
-      coverage: {
-        exclude: ['**/src/service*.js'],
-        quiet: true,
-      },
     },
     setupNodeEvents(cypressOn, config) {
       // fix https://github.com/cypress-io/cypress/issues/22428
