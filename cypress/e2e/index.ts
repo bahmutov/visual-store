@@ -1,6 +1,5 @@
 /**
- * create a small type on the fly using jsdoc comment
- * just to help type check help us
+ * An object with username and password
  */
 export interface LoginInfo {
   username: string

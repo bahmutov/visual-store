@@ -13,21 +13,26 @@ describe('Login', () => {
 
   beforeEach(() => {
     // visit the login page
+    // https://on.cypress.io/visit
     cy.visit('/')
   })
 
   it('wrong password', () => {
     // type the valid username and some made up password
+    // https://on.cypress.io/get
+    // https://on.cypress.io/type
     cy.get(selectors.username).type(user.username)
     cy.get(selectors.password).type('incorrect-password')
     // click on the login button
     // https://on.cypress.io/click
     cy.get(selectors.loginButton).click()
     // confirm the page shows errors and stays on login URL
+    // https://on.cypress.io/contains
     cy.contains(
       selectors.error,
       'Epic sadface: Username and password do not match any user in this service',
     )
+    // https://on.cypress.io/location
     cy.location('pathname').should('equal', '/')
   })
 
@@ -46,7 +51,7 @@ describe('Login', () => {
     cy.location('pathname').should('equal', '/')
   })
 
-  it.only('successful logs in', () => {
+  it('successful logs in', () => {
     // type the valid username and password
     cy.get(selectors.username).type(user.username)
     cy.get(selectors.password).type(user.password)
