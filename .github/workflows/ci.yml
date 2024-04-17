@@ -1,0 +1,29 @@
+name: ci
+on: [push]
+jobs:
+  # check if the tests pass TypeScript check step
+  # and there are no exclusive tests accidentally left in the code
+  checks:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+      # https://github.com/cypress-io/github-action
+      - name: Install 📦
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+      - name: Check types 🧹
+        run: npm run lint
+      - name: Catch it.only tests 🫴
+        run: npm run only
+
+  # run end-to-end and component tests in parallel
+  # https://github.com/bahmutov/cypress-workflows
+  tests:
+    needs: checks
+    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v2
+    with:
+      nE2E: 4 # use N containers for E2E tests
+      start: npm start
+      wait-on: 'http://127.0.0.1:3000'
