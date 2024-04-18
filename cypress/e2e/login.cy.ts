@@ -28,6 +28,7 @@ describe('Login', () => {
     // and assert that its background color is "rgb(226, 35, 26)"
     // First, use the "window.getComputedStyle"
     // Second, use cy.invoke('css', 'background-color')
+    // Third, use "have.css" assertion
     // Which method worked?
   })
 })
