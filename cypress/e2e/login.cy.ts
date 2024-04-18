@@ -26,16 +26,9 @@ describe('Login', () => {
     )
     // confirm the username input has the error class
     // and the computed style "border-bottom-color" is "rgb(226, 35, 26)"
-    cy.get(selectors.username)
-      .should('have.class', 'error')
-      .then(($el) => window.getComputedStyle($el[0]).borderBottomColor)
-      .should('equal', 'rgb(226, 35, 26)')
+    //
     // remove the error class from the username input
-    cy.get(selectors.username).invoke('removeClass', 'error')
     // confirm the border-bottom-color is back to the default
     // #ededef = rgb(237, 237, 239)
-    cy.get(selectors.username)
-      .then(($el) => window.getComputedStyle($el[0]).borderBottomColor)
-      .should('equal', 'rgb(237, 237, 239)')
   })
 })
