@@ -25,6 +25,7 @@
     "cypress-split": "^1.23.0",
     "cypress-watch-and-reload": "^1.10.6",
     "find-cypress-specs": "^1.33.0",
+    "odiff-bin": "^2.6.1",
     "prettier": "^3.2.5",
     "prop-types": "^15.7.2",
     "start-server-and-test": "^2.0.0",
