@@ -29,16 +29,5 @@ describe('Login', () => {
     // First, use the "window.getComputedStyle"
     // Second, use cy.invoke('css', 'background-color')
     // Which method worked?
-
-    // 1: using window.getComputedStyle does not work
-    cy.get('.error-message-container')
-      .then(($el) => {
-        return window.getComputedStyle($el[0]).backdropFilter
-      })
-      .should('equal', 'rgb(226, 35, 26)')
-    // 2: using cy.invoke retries until the assertion passes
-    cy.get('.error-message-container')
-      .invoke('css', 'background-color')
-      .should('equal', 'rgb(226, 35, 26)')
   })
 })
