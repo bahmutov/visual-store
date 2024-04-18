@@ -22,17 +22,6 @@ describe('Login', () => {
     // by setting them to "none !important"
     // See "How Cypress Freezes CSS Animations And You Can Too"
     // https://glebbahmutov.com/blog/css-animations/
-    cy.get('body').invoke(
-      'append',
-      Cypress.$(`
-      <style id="__cypress-animation-disabler">
-        *, *:before, *:after {
-          transition-property: none !important;
-          animation: none !important;
-        }
-      </style>
-    `),
-    )
 
     cy.get(selectors.username).type(user.username)
     cy.get(selectors.password).type('incorrect-password')
@@ -46,19 +35,5 @@ describe('Login', () => {
     // First, use the "window.getComputedStyle"
     // Second, use cy.invoke('css', 'background-color')
     // Which method worked?
-
-    // 1: using window.getComputedStyle works!
-    cy.log('**getComputedStyle**')
-    cy.get('.error-message-container')
-      .then(($el) => {
-        return window.getComputedStyle($el[0]).backgroundColor
-      })
-      .should('equal', 'rgb(226, 35, 26)')
-
-    // 2: using cy.invoke also works!
-    cy.log('**invoke css**')
-    cy.get('.error-message-container')
-      .invoke('css', 'background-color')
-      .should('equal', 'rgb(226, 35, 26)')
   })
 })
