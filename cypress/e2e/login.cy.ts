@@ -30,6 +30,5 @@ describe('Login', () => {
     // and assert that its background color is stable
     // that is, it's not changing anymore. You do not know the expected color.
     // Tip: look up cy.stable command from the cypress-map plugin
-    cy.get('.error-message-container').stable('css', 'background-color', 100)
   })
 })
