@@ -25,19 +25,20 @@ describe('Login', () => {
       'Epic sadface: Username and password do not match any user in this service',
     )
     // get the error message container
-    // and assert that it has the correct font-size
-    // Tip: you can invoke the 'css' method to get the computed style
-    // https://on.cypress.io/invoke
-    // https://api.jquery.com/css/
-    // does it yield a value as written in the CSS file ErrorMessage.css?
-    cy.get('.error-message-container')
-      .invoke('css', 'font-size')
-      .should('equal', '14px')
-    // confirm the same value is returned by the window.getComputedStyle
+    // and assert that its background color is "rgb(226, 35, 26)"
+    // First, use the "window.getComputedStyle"
+    // Second, use cy.invoke('css', 'background-color')
+    // Which method worked?
+
+    // 1: using window.getComputedStyle does not work
     cy.get('.error-message-container')
       .then(($el) => {
-        return window.getComputedStyle($el[0]).fontSize
+        return window.getComputedStyle($el[0]).backdropFilter
       })
-      .should('equal', '14px')
+      .should('equal', 'rgb(226, 35, 26)')
+    // 2: using cy.invoke retries until the assertion passes
+    cy.get('.error-message-container')
+      .invoke('css', 'background-color')
+      .should('equal', 'rgb(226, 35, 26)')
   })
 })

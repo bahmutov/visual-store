@@ -12,13 +12,26 @@
   justify-content: center;
 }
 
+@keyframes error {
+  0% {
+    background-color: #ffffff;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  100% {
+    background-color: #e2231a;
+  }
+}
+
 .error-message-container.error {
   background-color: #e2231a;
+  animation: error 3.5s;
 }
 
 .error-message-container h3 {
   color: #ffffff;
-  font-size: large;
+  font-size: 14px;
   text-align: center;
   font-family: Roboto, Arial, Helvetica, sans-serif;
   padding-left: 10px;
