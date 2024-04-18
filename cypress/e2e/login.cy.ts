@@ -16,7 +16,7 @@ describe('Login', () => {
     cy.visit('/')
   })
 
-  it('removes the error class from the input element', () => {
+  it('gets the computed style using $.css', () => {
     cy.get(selectors.username).type(user.username)
     cy.get(selectors.password).type('incorrect-password')
     cy.get(selectors.loginButton).click()
@@ -24,18 +24,20 @@ describe('Login', () => {
       selectors.error,
       'Epic sadface: Username and password do not match any user in this service',
     )
-    // confirm the username input has the error class
-    // and the computed style "border-bottom-color" is "rgb(226, 35, 26)"
-    cy.get(selectors.username)
-      .should('have.class', 'error')
-      .then(($el) => window.getComputedStyle($el[0]).borderBottomColor)
-      .should('equal', 'rgb(226, 35, 26)')
-    // remove the error class from the username input
-    cy.get(selectors.username).invoke('removeClass', 'error')
-    // confirm the border-bottom-color is back to the default
-    // #ededef = rgb(237, 237, 239)
-    cy.get(selectors.username)
-      .then(($el) => window.getComputedStyle($el[0]).borderBottomColor)
-      .should('equal', 'rgb(237, 237, 239)')
+    // get the error message container
+    // and assert that it has the correct font-size
+    // Tip: you can invoke the 'css' method to get the computed style
+    // https://on.cypress.io/invoke
+    // https://api.jquery.com/css/
+    // does it yield a value as written in the CSS file ErrorMessage.css?
+    cy.get('.error-message-container')
+      .invoke('css', 'font-size')
+      .should('equal', '14px')
+    // confirm the same value is returned by the window.getComputedStyle
+    cy.get('.error-message-container')
+      .then(($el) => {
+        return window.getComputedStyle($el[0]).fontSize
+      })
+      .should('equal', '14px')
   })
 })
