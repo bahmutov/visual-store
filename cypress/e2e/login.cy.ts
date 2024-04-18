@@ -16,7 +16,7 @@ describe('Login', () => {
     cy.visit('/')
   })
 
-  it('changes the error color from the test', () => {
+  it('removes the error class from the input element', () => {
     cy.get(selectors.username).type(user.username)
     cy.get(selectors.password).type('incorrect-password')
     cy.get(selectors.loginButton).click()
@@ -24,22 +24,18 @@ describe('Login', () => {
       selectors.error,
       'Epic sadface: Username and password do not match any user in this service',
     )
-    // confirm the error message is red
-    // (the background color is rgb(226, 35, 26))
-    const redColor = 'rgb(226, 35, 26)'
-    cy.get('.error-message-container')
-      .then(($el) => window.getComputedStyle($el[0]).backgroundColor)
-      .should('equal', redColor)
-    // from the test change the background color of the error element
-    // to green color and confirm the computed style is green
-    // Tip: all Cypress query commands yield a jQuery object
-    cy.get('.error-message-container').invoke(
-      'css',
-      'background-color',
-      'green',
-    )
-    cy.get('.error-message-container')
-      .then(($el) => window.getComputedStyle($el[0]).backgroundColor)
-      .should('equal', 'rgb(0, 128, 0)')
+    // confirm the username input has the error class
+    // and the computed style "border-bottom-color" is "rgb(226, 35, 26)"
+    cy.get(selectors.username)
+      .should('have.class', 'error')
+      .then(($el) => window.getComputedStyle($el[0]).borderBottomColor)
+      .should('equal', 'rgb(226, 35, 26)')
+    // remove the error class from the username input
+    cy.get(selectors.username).invoke('removeClass', 'error')
+    // confirm the border-bottom-color is back to the default
+    // #ededef = rgb(237, 237, 239)
+    cy.get(selectors.username)
+      .then(($el) => window.getComputedStyle($el[0]).borderBottomColor)
+      .should('equal', 'rgb(237, 237, 239)')
   })
 })
