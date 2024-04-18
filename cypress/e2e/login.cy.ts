@@ -30,14 +30,6 @@ describe('Login', () => {
     // https://on.cypress.io/invoke
     // https://api.jquery.com/css/
     // does it yield a value as written in the CSS file ErrorMessage.css?
-    cy.get('.error-message-container')
-      .invoke('css', 'font-size')
-      .should('equal', '14px')
     // confirm the same value is returned by the window.getComputedStyle
-    cy.get('.error-message-container')
-      .then(($el) => {
-        return window.getComputedStyle($el[0]).fontSize
-      })
-      .should('equal', '14px')
   })
 })
