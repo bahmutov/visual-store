@@ -20,7 +20,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "cypress": "^13.7.3",
     "cypress-data-session": "^2.8.2",
-    "cypress-map": "^1.37.0",
+    "cypress-map": "^1.38.0",
     "cypress-on-fix": "^1.0.0",
     "cypress-split": "^1.23.0",
     "cypress-watch-and-reload": "^1.10.6",
