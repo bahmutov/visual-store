@@ -40,6 +40,8 @@
     "test": "cypress run",
     "cy:open": "cypress open --e2e",
     "dev": "start-test 3000 cy:open",
+    "dev:build": "CYPRESS_baseUrl=http://127.0.0.1:4173 start-test preview http://127.0.0.1:4173 cy:open",
+    "predev:build": "vite build",
     "ci": "start-test 3000",
     "lint": "tsc --noEmit --pretty",
     "clean": "rm -rf .nyc_output coverage",

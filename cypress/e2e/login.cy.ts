@@ -15,21 +15,25 @@ describe('Login', () => {
   const user: LoginInfo = Cypress.env('users').standard
 
   beforeEach(() => {
+    // intercept all CSS requests and respond with an empty string
+    // or a 404 error
+    // https://on.cypress.io/intercept
+    cy.intercept(
+      {
+        method: 'GET',
+        pathname: /\.css$/,
+      },
+      {
+        error: 404,
+      },
+    ).as('css')
     cy.visit('/')
   })
 
-  it('waits for the CSS property to stop changing', () => {
+  it('works even without CSS', () => {
     cy.get(selectors.username).type(user.username)
-    cy.get(selectors.password).type('incorrect-password')
+    cy.get(selectors.password).type(user.password)
     cy.get(selectors.loginButton).click()
-    cy.contains(
-      selectors.error,
-      'Epic sadface: Username and password do not match any user in this service',
-    )
-    // get the error message container
-    // and assert that its background color is stable
-    // that is, it's not changing anymore. You do not know the expected color.
-    // Tip: look up cy.stable command from the cypress-map plugin
-    cy.get('.error-message-container').stable('css', 'background-color', 100)
+    cy.location('pathname').should('equal', '/inventory')
   })
 })
