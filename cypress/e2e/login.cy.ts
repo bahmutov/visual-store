@@ -15,25 +15,21 @@ describe('Login', () => {
   const user: LoginInfo = Cypress.env('users').standard
 
   beforeEach(() => {
-    // intercept all CSS requests and respond with an empty string
-    // or a 404 error
-    // https://on.cypress.io/intercept
-    cy.intercept(
-      {
-        method: 'GET',
-        pathname: /\.css$/,
-      },
-      {
-        error: 404,
-      },
-    ).as('css')
     cy.visit('/')
   })
 
-  it('works even without CSS', () => {
+  it('takes screenshots', () => {
     cy.get(selectors.username).type(user.username)
-    cy.get(selectors.password).type(user.password)
+    cy.get(selectors.password).type('wrong-password')
+    // take a screenshot of the entire login page
+    // https://on.cypress.io/screenshot
+    cy.screenshot('login-page', { overwrite: true })
+    // try to log in with wrong password
     cy.get(selectors.loginButton).click()
-    cy.location('pathname').should('equal', '/inventory')
+    // take a screenshot of the login form only
+    // using id "login_button_container"
+    cy.get('#login_button_container').screenshot('login-form', {
+      overwrite: true,
+    })
   })
 })
