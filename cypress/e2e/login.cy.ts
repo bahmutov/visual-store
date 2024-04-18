@@ -23,13 +23,8 @@ describe('Login', () => {
     cy.get(selectors.password).type('wrong-password')
     // take a screenshot of the entire login page
     // https://on.cypress.io/screenshot
-    cy.screenshot('login-page', { overwrite: true })
     // try to log in with wrong password
-    cy.get(selectors.loginButton).click()
     // take a screenshot of the login form only
     // using id "login_button_container"
-    cy.get('#login_button_container').screenshot('login-form', {
-      overwrite: true,
-    })
   })
 })
