@@ -18,15 +18,6 @@ describe('Login', () => {
     // intercept all CSS requests and respond with an empty string
     // or a 404 error
     // https://on.cypress.io/intercept
-    cy.intercept(
-      {
-        method: 'GET',
-        pathname: /\.css$/,
-      },
-      {
-        error: 404,
-      },
-    ).as('css')
     cy.visit('/')
   })
 
