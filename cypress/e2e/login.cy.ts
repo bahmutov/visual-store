@@ -33,13 +33,5 @@ describe('Login', () => {
     // from the test change the background color of the error element
     // to green color and confirm the computed style is green
     // Tip: all Cypress query commands yield a jQuery object
-    cy.get('.error-message-container').invoke(
-      'css',
-      'background-color',
-      'green',
-    )
-    cy.get('.error-message-container')
-      .then(($el) => window.getComputedStyle($el[0]).backgroundColor)
-      .should('equal', 'rgb(0, 128, 0)')
   })
 })
