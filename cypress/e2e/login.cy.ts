@@ -20,12 +20,6 @@ describe('Login', () => {
     // set the browser to emulate a desktop device
     // with fixed dimensions and no device scale factor
     // https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride
-    cy.CDP('Emulation.setDeviceMetricsOverride', {
-      width: 1280,
-      height: 720,
-      mobile: false,
-      deviceScaleFactor: 1,
-    })
 
     cy.visit('/')
   })
