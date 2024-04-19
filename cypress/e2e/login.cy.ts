@@ -18,18 +18,13 @@ describe('Login', () => {
     cy.visit('/')
   })
 
-  it('takes screenshots', () => {
+  it('logs in', () => {
+    // how many screenshots does this test need?
+    // set up several screenshots and save them to the "cypress/gold" folder
+    cy.get('.error-message-container').should('be.empty')
     cy.get(selectors.username).type(user.username)
     cy.get(selectors.password).type('wrong-password')
-    // take a screenshot of the entire login page
-    // https://on.cypress.io/screenshot
-    cy.screenshot('login-page', { overwrite: true })
-    // try to log in with wrong password
     cy.get(selectors.loginButton).click()
-    // take a screenshot of the login form only
-    // using id "login_button_container"
-    cy.get('#login_button_container').screenshot('login-form', {
-      overwrite: true,
-    })
+    cy.get('.error-message-container').should('not.be.empty')
   })
 })
