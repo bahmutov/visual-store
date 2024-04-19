@@ -22,9 +22,11 @@ describe('Login', () => {
     // how many screenshots does this test need?
     // set up several screenshots and save them to the "cypress/gold" folder
     cy.get('.error-message-container').should('be.empty')
+    cy.screenshot('login-page', { overwrite: true })
     cy.get(selectors.username).type(user.username)
     cy.get(selectors.password).type('wrong-password')
     cy.get(selectors.loginButton).click()
     cy.get('.error-message-container').should('not.be.empty')
+    cy.screenshot('login-error', { overwrite: true })
   })
 })
