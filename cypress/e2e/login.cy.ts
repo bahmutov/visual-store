@@ -1,6 +1,8 @@
 import { LoginInfo } from '.'
 // https://github.com/bahmutov/cypress-map
 import 'cypress-map'
+// https://github.com/bahmutov/cypress-cdp
+import 'cypress-cdp'
 
 // use these selectors to find elements on the Login page
 const selectors = {
@@ -15,6 +17,16 @@ describe('Login', () => {
   const user: LoginInfo = Cypress.env('users').standard
 
   beforeEach(() => {
+    // set the browser to emulate a desktop device
+    // with fixed dimensions and no device scale factor
+    // https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride
+    cy.CDP('Emulation.setDeviceMetricsOverride', {
+      width: 1280,
+      height: 720,
+      mobile: false,
+      deviceScaleFactor: 1,
+    })
+
     cy.visit('/')
   })
 

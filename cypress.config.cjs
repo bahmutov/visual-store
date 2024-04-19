@@ -13,7 +13,6 @@ module.exports = defineConfig({
     supportFile: 'cypress/support/e2e.ts',
     experimentalRunAllSpecs: true,
     env: {
-      resolution: 'high',
       users: {
         standard: {
           username: 'standard_user',
@@ -47,9 +46,6 @@ module.exports = defineConfig({
       registerDataSession(on, config)
       // https://github.com/bahmutov/cypress-watch-and-reload
       require('cypress-watch-and-reload/plugins')(on, config)
-
-      // https://github.com/bahmutov/cypress-high-resolution
-      require('cypress-high-resolution')(on, config)
 
       // IMPORTANT to return the config object
       // with the any changed environment variables
