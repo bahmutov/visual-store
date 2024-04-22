@@ -1,34 +1,18 @@
 name: ci
-on: [push]
+on: [pull_request]
 jobs:
   e2e:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+
       # https://github.com/cypress-io/github-action
       - name: Install 📦
         uses: cypress-io/github-action@v6
         with:
           start: npm start
           wait-on: 'http://127.0.0.1:3000'
-
-      # generate image diffs between two gold images
-      # and the two screenshots
-      # Tip: always run this step, even if the tests fail
-      # Tip 2: use "|| true" to ignore any diff errors
-      # since there might be no screenshots
-      - name: Generate image diffs 📸
-        run: |
-          npx odiff --diff-color=#ff00ff \
-          cypress/gold/login.cy.ts/login-page.png \
-          cypress/screenshots/login.cy.ts/login-page.png \
-          cypress/screenshots/login-page-diff.png || true
-          # the second image
-          npx odiff --diff-color=#ff00ff \
-          cypress/gold/login.cy.ts/login-error.png \
-          cypress/screenshots/login.cy.ts/login-error.png \
-          cypress/screenshots/login-error-diff.png || true
 
       # after the test run completes store the screenshots and diffs
       - name: Save screenshots 📸
@@ -39,3 +23,10 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots
           if-no-files-found: ignore
+
+      - name: Add new gold images to source control 🏆
+        # https://github.com/stefanzweifel/git-auto-commit-action
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: updated gold images
+          file_pattern: cypress/gold
