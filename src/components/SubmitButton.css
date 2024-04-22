@@ -1,6 +1,10 @@
 .submit-button {
-  background-color: #033ca5 !important;
-  border: 2px solid #033ca5 !important;
+  /* before submit is red */
+  background-color: #ffffff;
+  border: 2px solid #e2231a;
+  /* after submit is blue */
+  /* background-color: #033ca5 !important;
+  border: 2px solid #033ca5 !important; */
   color: #e2231a;
   cursor: pointer;
   display: inline-block;
