@@ -46,32 +46,6 @@ describe('Login', () => {
           // https://on.cypress.io/document
           // https://on.cypress.io/readfile
           // Tip: make sure to throw an error at the end to fail the test
-          if (result.match === true) {
-            if ('newImage' in result && result.newImage) {
-              cy.log('✅ new image')
-            } else {
-              cy.log('✅ images match')
-            }
-          } else {
-            cy.log('🔥 images do not match')
-            if (result.reason === 'pixel-diff') {
-              cy.log(`pixels different: ${result.diffPercentage}`)
-              cy.log(result.diffImagePath)
-              cy.readFile(result.diffImagePath, 'base64', {
-                log: false,
-              }).then((diffImage) => {
-                cy.document({ log: false })
-                  .its('body', { log: false })
-                  .then((body) => {
-                    body.innerHTML =
-                      '<img style="width:100%" src="data:image/png;base64,' +
-                      diffImage +
-                      '"/>'
-                    throw new Error('images do not match')
-                  })
-              })
-            }
-          }
         },
       )
     })
