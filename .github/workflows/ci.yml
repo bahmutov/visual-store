@@ -3,6 +3,10 @@ on: [pull_request]
 jobs:
   e2e:
     runs-on: ubuntu-22.04
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
@@ -27,6 +31,10 @@ jobs:
       - name: Add new gold images to source control 🏆
         # https://github.com/stefanzweifel/git-auto-commit-action
         uses: stefanzweifel/git-auto-commit-action@v4
+        # always add any changed or new gold images
+        # to the source control so the user can review them
+        # in the pull request
+        if: always()
         with:
           commit_message: updated gold images
           file_pattern: cypress/gold
