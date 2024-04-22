@@ -39,7 +39,7 @@ jobs:
 
       - name: Add changed gold images to source control 🏆
         # https://github.com/stefanzweifel/git-auto-commit-action
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         # always add any changed or new gold images
         # to the source control so the user can review them
         # in the pull request
