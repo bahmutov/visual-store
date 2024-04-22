@@ -15,6 +15,7 @@ type ODiffResult =
     }
 
 Cypress.Commands.add('imageDiff', (name: string) => {
+  // grab the real screenshot path
   let screenshotPath: string
   cy.screenshot(name, {
     overwrite: true,
@@ -34,6 +35,7 @@ Cypress.Commands.add('imageDiff', (name: string) => {
     const goldPath = path.join(goldImages, goldNameFolder)
     const diffName = path.join(goldPath, `${name}.png`)
     const relativeScreenshotPath = path.relative(rootFolder, screenshotPath)
+
     cy.log(`diffing ${relativeScreenshotPath} against ${diffName}`)
     cy.task<ODiffResult>('diffImage', {
       screenshotPath: relativeScreenshotPath,
