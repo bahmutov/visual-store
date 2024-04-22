@@ -22,14 +22,23 @@ describe('Store', () => {
     cy.get('.login_wrapper').should('be.visible')
     cy.get(selectors.username).type('standard_user')
     cy.get(selectors.password).type('secret_sauce')
+
+    cy.imageDiff('login') // one
+
     cy.get(selectors.loginButton).click()
     cy.location('pathname').should('equal', '/inventory')
     cy.get('.inventory_container').should('be.visible')
     cy.contains('button', 'Add to cart').click()
     cy.contains('.shopping_cart_badge', 1).should('be.visible')
+
+    cy.imageDiff('inventory') // two
+
     cy.get('a.shopping_cart_link').click()
     cy.location('pathname').should('equal', '/cart')
     cy.get('.cart_list').should('be.visible')
+
+    cy.imageDiff('cart') // three
+
     cy.contains('button', 'Checkout').click()
     cy.location('pathname').should('equal', '/checkout-step-one')
     cy.get(checkoutSelectors.firstName).type('John')
