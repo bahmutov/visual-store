@@ -2,6 +2,12 @@
 declare namespace Cypress {
   interface Chainable {
     /**
+     * Takes the page screenshot and compares it to the gold image
+     * using the cy.task "diffImage".
+     */
+    imageDiff(name: string): void
+
+    /**
      * Fill the current form (the parent subject)
      * with the given values. The argument is an object
      * with the keys being selectors and values being the strings
