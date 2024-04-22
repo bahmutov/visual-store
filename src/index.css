@@ -1,13 +1,7 @@
-/*
-  import a custom font named "Satisfy" that looks hand-written
-  https://fonts.google.com/specimen/Satisfy
-*/
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
-
 body,
 html {
   /* use fonts want fallback */
-  font-family: 'Satisfy', 'Roboto', Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 14px;
   color: #484c55;
   height: 100vh;

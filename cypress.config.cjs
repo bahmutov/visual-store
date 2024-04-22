@@ -5,6 +5,8 @@ const cypressSplit = require('cypress-split')
 // https://github.com/bahmutov/cypress-on-fix
 const cypressOnFix = require('cypress-on-fix')
 const path = require('path')
+const fs = require('fs')
+const { compare } = require('odiff-bin')
 
 module.exports = defineConfig({
   e2e: {
@@ -46,6 +48,49 @@ module.exports = defineConfig({
       registerDataSession(on, config)
       // https://github.com/bahmutov/cypress-watch-and-reload
       require('cypress-watch-and-reload/plugins')(on, config)
+
+      on('task', {
+        async diffImage(options) {
+          if (!options) {
+            throw new Error('Missing diff options')
+          }
+          const { screenshotPath, goldPath } = options
+          if (!fs.existsSync(goldPath)) {
+            console.log('New image %s', screenshotPath)
+            console.log('Copied to %s', goldPath)
+            fs.copyFileSync(screenshotPath, goldPath)
+            return {
+              match: true,
+              newImage: true,
+              reason: 'Copied new image to gold',
+            }
+          } else {
+            const basename = path.basename(screenshotPath, '.png')
+            const diffImagePath = path.join(
+              config.screenshotsFolder,
+              `${basename}-diff.png`,
+            )
+            const options = {
+              diffColor: '#ff00ff', // cyan
+              antialiasing: true,
+              threshold: 0.1,
+            }
+            const result = await compare(
+              screenshotPath,
+              goldPath,
+              diffImagePath,
+              options,
+            )
+            console.log('diffing %s and %s', screenshotPath, goldPath)
+            console.log('with result diff in image %s', diffImagePath)
+            console.dir(result)
+            return {
+              ...result,
+              diffImagePath,
+            }
+          }
+        },
+      })
 
       // IMPORTANT to return the config object
       // with the any changed environment variables

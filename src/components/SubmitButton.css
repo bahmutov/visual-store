@@ -1,6 +1,11 @@
 .submit-button {
+  /* original style */
   background-color: #ffffff;
   border: 2px solid #e2231a;
+  /* changed style */
+  /* background-color: #033ca5 !important;
+  border: 2px solid #033ca5 !important; */
+  /* the rest of properties */
   color: #e2231a;
   cursor: pointer;
   display: inline-block;
