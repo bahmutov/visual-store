@@ -59,6 +59,14 @@ module.exports = defineConfig({
           const { screenshotPath, goldPath } = options
           if (!fs.existsSync(goldPath)) {
             console.log('New image %s', screenshotPath)
+            if (config.env.failOnMissingGoldImage) {
+              console.error('Missing gold image %s', goldPath)
+              console.error(
+                'Adding new gold images not allowed failOnMissingGoldImage=true',
+              )
+              throw new Error(`Missing gold image ${goldPath}`)
+            }
+
             console.log('Copied to %s', goldPath)
             // ensure the target folder exists
             const goldFolder = path.dirname(goldPath)
