@@ -90,6 +90,16 @@ module.exports = defineConfig({
             console.log('diffing %s and %s', screenshotPath, goldPath)
             console.log('with result diff in image %s', diffImagePath)
             console.dir(result)
+
+            // if we work on a PR we want to update the Gold images
+            // so that the user reviews the changes
+            if (result.match === false && config.env.updateGoldImages) {
+              console.log('Updating gold image %s', goldPath)
+              fs.copyFileSync(screenshotPath, goldPath)
+              result.match = true
+              result.reason = 'Updated gold image'
+            }
+
             return {
               ...result,
               diffImagePath,

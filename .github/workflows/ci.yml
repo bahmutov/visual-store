@@ -17,6 +17,7 @@ jobs:
         with:
           start: npm start
           wait-on: 'http://127.0.0.1:3000'
+          env: updateGoldImages=true
 
       # after the test run completes store the screenshots and diffs
       - name: Save screenshots 📸
@@ -28,7 +29,7 @@ jobs:
           path: cypress/screenshots
           if-no-files-found: ignore
 
-      - name: Add new gold images to source control 🏆
+      - name: Add changed gold images to source control 🏆
         # https://github.com/stefanzweifel/git-auto-commit-action
         uses: stefanzweifel/git-auto-commit-action@v4
         # always add any changed or new gold images

@@ -4,7 +4,7 @@ import path from 'path'
 const goldImages = 'cypress/gold'
 
 type ODiffResult =
-  | { match: true }
+  | { match: true; reason?: string }
   | { match: true; newImage: true; reason: 'Copied new image to gold' }
   | {
       match: false
@@ -57,6 +57,9 @@ Cypress.Commands.add('imageDiff', (name: string) => {
           cy.log('✅ new image')
         } else {
           cy.log('✅ images match')
+          if (result.reason) {
+            cy.log(result.reason)
+          }
         }
       } else {
         cy.log('🔥 images do not match')
