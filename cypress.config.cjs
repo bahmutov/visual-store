@@ -58,6 +58,12 @@ module.exports = defineConfig({
           if (!fs.existsSync(goldPath)) {
             console.log('New image %s', screenshotPath)
             console.log('Copied to %s', goldPath)
+            // ensure the target folder exists
+            const goldFolder = path.dirname(goldPath)
+            if (!fs.existsSync(goldFolder)) {
+              fs.mkdirSync(goldFolder, { recursive: true })
+              console.log('Created folder %s', goldFolder)
+            }
             fs.copyFileSync(screenshotPath, goldPath)
             return {
               match: true,
@@ -76,8 +82,8 @@ module.exports = defineConfig({
               threshold: 0.1,
             }
             const result = await compare(
-              screenshotPath,
               goldPath,
+              screenshotPath,
               diffImagePath,
               options,
             )

@@ -4,6 +4,8 @@ declare namespace Cypress {
     /**
      * Takes the page screenshot and compares it to the gold image
      * using the cy.task "diffImage".
+     * @example
+     *  cy.imageDiff('landing-page')
      */
     imageDiff(name: string): void
 
