@@ -34,7 +34,7 @@ jobs:
         # always add any changed or new gold images
         # to the source control so the user can review them
         # in the pull request
-        if: always()
-        with:
-          commit_message: updated gold images
-          file_pattern: cypress/gold
+        # if: <condition>
+        # with:
+        #   commit_message: <commit message>
+        #   file_pattern: <folder with gold images>
