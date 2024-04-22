@@ -4,6 +4,8 @@
 
 🎓 Course [Visual Testing With Cypress](https://cypress.tips/courses/visual-testing)
 
+📚 Workshop [Cypress Visual Testing](https://github.com/bahmutov/cypress-visual-testing-workshop)
+
 ## Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2024
