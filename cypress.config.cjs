@@ -14,6 +14,8 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:3000',
     supportFile: 'cypress/support/e2e.ts',
     experimentalRunAllSpecs: true,
+    viewportHeight: 1200,
+    scrollBehavior: 'center',
     env: {
       users: {
         standard: {
