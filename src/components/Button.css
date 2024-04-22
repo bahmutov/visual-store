@@ -4,7 +4,7 @@
   outline: none;
   padding: 6px 28px;
   font-size: 14px;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   display: inline-block;
   text-decoration: none;
   text-transform: uppercase;
@@ -41,7 +41,7 @@
 }
 
 .btn_small {
-  width: 160px;
+  width: 120px;
 }
 
 .btn_medium {
