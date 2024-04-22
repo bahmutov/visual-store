@@ -20,15 +20,7 @@ jobs:
       # since there might be no screenshots
       - name: Generate image diffs 📸
         run: |
-          npx odiff --diff-color=#ff00ff \
-          cypress/gold/login.cy.ts/login-page.png \
-          cypress/screenshots/login.cy.ts/login-page.png \
-          cypress/screenshots/login-page-diff.png || true
-          # the second image
-          npx odiff --diff-color=#ff00ff \
-          cypress/gold/login.cy.ts/login-error.png \
-          cypress/screenshots/login.cy.ts/login-error.png \
-          cypress/screenshots/login-error-diff.png || true
+          # npx odiff ...
 
       # after the test run completes store the screenshots and diffs
       - name: Save screenshots 📸
@@ -36,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         # always upload the screenshots, even if the tests fail
         if: always()
-        with:
-          name: screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore
+        # with:
+        # name: <artifact name>
+        # path: <folder with screenshots>
+        # if-no-files-found: ignore
