@@ -30,7 +30,7 @@ it('shows the stats before login (stub the network call)', () => {
   cy.imageDiff('stats-mock')
 })
 
-it.only('shows the stats before login (confirm the fetched data is shown)', () => {
+it('shows the stats before login (confirm the fetched data is shown)', () => {
   // do not stub the network call and give it an alias
   // https://on.cypress.io/intercept
   // https://on.cypress.io/as
