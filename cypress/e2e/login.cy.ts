@@ -1,10 +1,9 @@
-const apiServerUrl = 'http://localhost:4200/stats'
-
 it('shows a visual difference on each run', () => {
   cy.visit('/')
   // confirm the page shows the fetched data
   cy.get('#login_stats').should('be.visible')
-  // visual assertion
+  // visual assertion that will fail because
+  // each screenshot will see something new
   cy.imageDiff('login')
 })
 
