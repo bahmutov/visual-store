@@ -8,6 +8,8 @@ const path = require('path')
 const fs = require('fs')
 const { compare } = require('odiff-bin')
 
+const fastify = require('fastify')
+
 module.exports = defineConfig({
   e2e: {
     // baseUrl, etc
@@ -51,7 +53,65 @@ module.exports = defineConfig({
       // https://github.com/bahmutov/cypress-watch-and-reload
       require('cypress-watch-and-reload/plugins')(on, config)
 
+      // Create a local server to receive image approval
+      const server = fastify({ logger: true })
+      server.options('/approve', (req, res) => {
+        res
+          .headers({
+            Allow: 'OPTIONS, POST',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'content-type',
+          })
+          .status(200)
+          .send()
+      })
+
+      server.post('/approve', async (req, res) => {
+        const options = req.body
+        const { screenshotPath, goldPath } = options
+        console.log(
+          '👍 User approved image %s to replace %s',
+          screenshotPath,
+          goldPath,
+        )
+        // ensure the target folder exists
+        const goldFolder = path.dirname(goldPath)
+        if (!fs.existsSync(goldFolder)) {
+          fs.mkdirSync(goldFolder, { recursive: true })
+          console.log('Created folder %s', goldFolder)
+        }
+        fs.copyFileSync(screenshotPath, goldPath)
+
+        res
+          .headers({
+            'access-control-allow-origin': '*',
+            'access-control-request-headers': 'Content-Type',
+          })
+          .send({ status: 'ok' })
+      })
+      server.listen({ port: 9555 }).then(() => {
+        console.log('image server listening on port 9555')
+      })
+
       on('task', {
+        approveImage(options) {
+          const { screenshotPath, goldPath } = options
+          console.log(
+            '👍 User approved image %s to replace %s',
+            screenshotPath,
+            goldPath,
+          )
+          // ensure the target folder exists
+          const goldFolder = path.dirname(goldPath)
+          if (!fs.existsSync(goldFolder)) {
+            fs.mkdirSync(goldFolder, { recursive: true })
+            console.log('Created folder %s', goldFolder)
+          }
+          fs.copyFileSync(screenshotPath, goldPath)
+
+          return null
+        },
+
         async diffImage(options) {
           if (!options) {
             throw new Error('Missing diff options')

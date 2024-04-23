@@ -76,10 +76,30 @@ Cypress.Commands.add('imageDiff', (name: string) => {
             cy.document({ log: false })
               .its('body', { log: false })
               .then((body) => {
+                const approveImage = `
+                  const options = {
+                    screenshotPath: '${relativeScreenshotPath}',
+                    goldPath: '${diffName}',
+                  }
+                  console.log('approved image')
+                  console.log(options)
+                  fetch('http://localhost:9555/approve', {
+                    method: 'POST',
+                    cors: 'cors',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(options),
+                  }).then(() => {
+                    document.getElementById('approve-image').innerText = '✅ approved'
+                  })
+                `
                 body.innerHTML =
                   '<img style="width:100%" src="data:image/png;base64,' +
                   diffImage +
-                  '"/>'
+                  '"/><button id="approve-image" style="position:fixed;top:20px;right:20px;" onclick="' +
+                  approveImage +
+                  '" title="Approve new image">👍</button>'
                 throw new Error('images do not match')
               })
           })
