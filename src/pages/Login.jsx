@@ -68,6 +68,8 @@ function Login(props) {
     setPassword(evt.target.value)
   }
 
+  const lastLogin = new Date().toLocaleTimeString('en-US')
+
   return (
     <div>
       <div className="login_logo" />
@@ -136,6 +138,9 @@ function Login(props) {
               <h4>Password for all users:</h4>
               secret_sauce
             </div>
+          </div>
+          <div className="login_credentials_wrap-inner">
+            Last login: <span id="last-login">{lastLogin}</span>
           </div>
         </div>
       </div>
