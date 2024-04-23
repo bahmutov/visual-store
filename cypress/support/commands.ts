@@ -27,12 +27,12 @@ Cypress.Commands.add('imageDiff', (name: string) => {
     const rootFolder = Cypress.config('projectRoot')
     const specName = path.relative(rootFolder, Cypress.spec.absolute)
 
-    const diffNameDirname = path.dirname(specName)
-    const goldNameFolder =
-      diffNameDirname.replaceAll('/', '-').replaceAll('.', '-') +
-      '-' +
-      Cypress.platform
-    const goldPath = path.join(goldImages, goldNameFolder)
+    const diffNameDirname = specName
+    const goldNameFolder = diffNameDirname
+      .replaceAll('/', '-')
+      .replaceAll('.', '-')
+
+    const goldPath = path.join(goldImages, goldNameFolder, Cypress.platform)
     const diffName = path.join(goldPath, `${name}.png`)
     const relativeScreenshotPath = path.relative(rootFolder, screenshotPath)
 
