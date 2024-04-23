@@ -66,6 +66,9 @@
   background-color: #efefef;
   overflow: hidden;
 }
+.last-item {
+  font-style: italic;
+}
 @media only screen and (min-width: 900px) {
   .form_column {
     float: left;
