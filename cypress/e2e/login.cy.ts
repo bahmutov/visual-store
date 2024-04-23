@@ -21,7 +21,7 @@ it('buys an item (replace content)', () => {
   cy.visit('/')
   cy.get('.login_wrapper').should('be.visible')
   // confirm the dynamic text has the right format
-  cy.contains('#last-login', /^\d\d:\d\d:\d\d [AP]M$/)
+  cy.contains('#last-login', /^\d?\d:\d\d:\d\d [AP]M$/)
     // and then replace the dynamic text with static timestamp
     .invoke('text', '11:22:33 AM')
   cy.imageDiff('login2')
