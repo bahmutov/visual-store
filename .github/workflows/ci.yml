@@ -17,15 +17,11 @@ jobs:
         uses: actions/checkout@v4
 
       # https://github.com/cypress-io/github-action
-      - name: Install 📦
+      - name: Cypress tests 🧪
         uses: cypress-io/github-action@v6
         with:
           start: npm start
           wait-on: 'http://127.0.0.1:3000'
-          # tell our image diff utility that even if the screenshot
-          # differs from the gold image, we want to update the gold image
-          # so that the user reviews the change in the PR
-          env: updateGoldImages=true
 
       # after the test run completes store the screenshots and diffs
       - name: Save screenshots 📸
