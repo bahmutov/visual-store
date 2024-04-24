@@ -12,6 +12,13 @@
   justify-content: center;
 }
 
+/* dark color theme */
+@media (prefers-color-scheme: dark) {
+  .error-message-container {
+    background-color: #000;
+  }
+}
+
 @keyframes error {
   0% {
     background-color: #ffffff;
