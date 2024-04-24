@@ -184,7 +184,7 @@ module.exports = defineConfig({
               } else if (result.match === true) {
                 rows.push(['✅', options.name])
               } else {
-                rows.push(['❌', options.name])
+                rows.push(['❌', options.name, result.diffPercentage])
               }
             }
           }
@@ -197,13 +197,14 @@ module.exports = defineConfig({
                 [
                   { data: 'Status', header: true },
                   { data: 'Name', header: true },
+                  { data: 'Diff %', header: true },
                 ],
                 ...rows,
               ])
               .write()
           } else {
             console.log(title)
-            console.table(['Status', 'Name'], rows)
+            console.table(['Status', 'Name', 'Diff %'], rows)
           }
         }
       })
