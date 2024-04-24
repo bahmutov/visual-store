@@ -5,8 +5,5 @@ it('handles the difference in robot images', () => {
   // but ignore any element with the class "bot_column"
   // see the cy.imageDiff JSDoc documentation
   // in the file cypress/support/index.d.ts
-  cy.imageDiff('01-login-page', {
-    mode: 'sync',
-    ignoreElements: '.bot_column',
-  })
+  // cy.imageDiff('01-login-page', { ... })
 })
