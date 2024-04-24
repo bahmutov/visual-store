@@ -1,16 +1,10 @@
 it('handles the difference in robot images', () => {
   // intercept the outgoing request to any of the robot images
   // that have form like '**/Login_Bot_graphic*.png'
-  // and replace it with the exact file name 'Login_Bot_graphic.png'
-  // so it always returns the first bot image
+  // and replace it with the fixture image "robot-placeholder.png"
   // https://on.cypress.io/intercept
-  cy.intercept('GET', '**/Login_Bot_graphic*.png', (req) => {
-    const sameUrl = req.url.replace(
-      /Login_Bot_graphic.*\.png/,
-      'Login_Bot_graphic.png',
-    )
-    console.log('replacing url', req.url, 'with', sameUrl)
-    req.url = sameUrl
+  cy.intercept('GET', '**/Login_Bot_graphic*.png', {
+    fixture: 'robot-placeholder.png',
   })
     // give the intercept an alias "botImage"
     .as('botImage')
