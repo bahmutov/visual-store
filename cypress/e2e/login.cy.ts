@@ -7,8 +7,4 @@ it('diffs an element', () => {
   //
   // Hint: cy.imageDiff is a dual command
   // https://on.cypress.io/custom-commands
-  cy.get('.login_credentials_wrap-inner')
-    .should('be.visible')
-    .and('include.text', 'Accepted usernames are:')
-    .imageDiff('credentials')
 })

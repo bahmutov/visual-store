@@ -18,11 +18,5 @@ it('checks the opened menu', () => {
   // https://github.com/bahmutov/cypress-map
   // and then use "deep.equal" assertion to check the array of strings
   const menuItems = ['ALL ITEMS', 'ABOUT', 'LOGOUT', 'RESET APP STATE']
-  cy.get('.bm-menu-wrap')
-    .should('be.visible')
-    .get('.menu-item')
-    .map('innerText')
-    .should('deep.equal', menuItems)
   // take a screenshot of the menu column and image diff it as "menu"
-  cy.get('.bm-menu-wrap').imageDiff('menu')
 })
