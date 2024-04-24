@@ -48,18 +48,28 @@ async function diffAnImage(options, config) {
       config.screenshotsFolder,
       `${basename}-diff.png`,
     )
-    const options = {
+    const odiffOptions = {
       diffColor: '#ff00ff', // cyan
       antialiasing: true,
       threshold: 0.1,
+      ignoreRegions: options.ignoreRegions,
     }
     const result = await compare(
       goldPath,
       screenshotPath,
       diffImagePath,
-      options,
+      odiffOptions,
     )
-    console.log('diffing %s and %s', screenshotPath, goldPath)
+    if (options.ignoreRegions && options.ignoreRegions.length) {
+      console.log(
+        'diffing %s and %s with %d ignored regions',
+        screenshotPath,
+        goldPath,
+        options.ignoreRegions.length,
+      )
+    } else {
+      console.log('diffing %s and %s', screenshotPath, goldPath)
+    }
     console.log('with result diff in image %s', diffImagePath)
     console.dir(result)
 

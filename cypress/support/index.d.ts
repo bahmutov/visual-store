@@ -1,6 +1,15 @@
 /// <reference types="cypress" />
 
-type ImageDiffOptions = { mode: 'sync' | 'async' }
+type ImageDiffOptions = {
+  /**
+   * Synchronous mode takes a screenshot and immediately compares it to the gold image.
+   */
+  mode: 'sync' | 'async'
+  /**
+   * CSS selector or an array of CSS selectors to ignore when comparing images
+   */
+  ignoreElements?: string | string[]
+}
 
 declare namespace Cypress {
   interface Chainable {
@@ -11,7 +20,9 @@ declare namespace Cypress {
      * If the image does not match, throws an error. The diff images
      * are saved to the screenshots folder.
      * @example
-     *  cy.imageDiff('landing-page')
+     *  cy.imageDiff('landing-page', {mode: 'sync'})
+     * @example
+     *  cy.imageDiff('landing-page', {mode: 'sync', ignoreElements: '.footer'})
      */
     imageDiff(name: string, options: ImageDiffOptions): void
 

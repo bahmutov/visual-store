@@ -14,9 +14,49 @@ type ODiffResult =
       diffImagePath: string
     }
 
+type IgnoreRegion = {
+  x1: number
+  y1: number
+  x2: number
+  y2: number
+}
+
 Cypress.Commands.add(
   'imageDiff',
   (name: string, options: ImageDiffOptions = { mode: 'sync' }) => {
+    const devicePixelRatio = window.devicePixelRatio
+
+    const ignoreRegions: IgnoreRegion[] = []
+    let ignoreElementsMessage: string | undefined
+
+    if (options.ignoreElements) {
+      if (typeof options.ignoreElements === 'string') {
+        options.ignoreElements = [options.ignoreElements]
+      }
+      if (options.ignoreElements.length) {
+        ignoreElementsMessage = options.ignoreElements
+          .map((s) => '"' + s + '"')
+          .join(', ')
+        // console.log('ignoring elements', options.ignoreElements.join(', '))
+        // @ts-ignore
+        const win = cy.state('window')
+        const doc = win.document
+        options.ignoreElements.forEach((selector) => {
+          // maybe we need to query all elements and loop through them
+          const el = doc.querySelector(selector)
+          if (el) {
+            const { x, y, width, height } = el.getBoundingClientRect()
+            ignoreRegions.push({
+              x1: Math.floor(x * devicePixelRatio),
+              y1: Math.floor(y * devicePixelRatio),
+              x2: Math.ceil((x + width) * devicePixelRatio),
+              y2: Math.ceil((y + height) * devicePixelRatio),
+            })
+          }
+        })
+      }
+    }
+
     // grab the real screenshot path
     let screenshotPath: string
     cy.screenshot(name, {
@@ -43,13 +83,20 @@ Cypress.Commands.add(
         screenshotPath: relativeScreenshotPath,
         goldPath: diffName,
         relativeSpecName: Cypress.spec.relative,
+        ignoreRegions,
       }
 
       if (options.mode === 'async') {
         cy.log(`will diff image ${relativeScreenshotPath} later 👋`)
         cy.task('rememberToDiffImage', diffOptions)
       } else {
-        cy.log(`diffing ${relativeScreenshotPath} against ${diffName}`)
+        if (ignoreElementsMessage) {
+          cy.log(
+            `diffing ${relativeScreenshotPath} against ${diffName} while ignoring elements ${ignoreElementsMessage}`,
+          )
+        } else {
+          cy.log(`diffing ${relativeScreenshotPath} against ${diffName}`)
+        }
         cy.task<ODiffResult>('diffImage', diffOptions).then((result) => {
           // report the image diffing result, which could be
           // 1: a new image (no previous gold image found)
