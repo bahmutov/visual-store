@@ -209,24 +209,23 @@ module.exports = defineConfig({
             }
 
             if (process.env.GITHUB_ACTIONS) {
-              ghCore.summary
-                .addHeading(specName, 2)
-                .addTable([
-                  [
-                    { data: 'Status', header: true },
-                    { data: 'Name', header: true },
-                    { data: 'Diff %', header: true },
-                  ],
-                  ...rows,
-                ])
-                .write()
+              ghCore.summary.addHeading(specName, 2).addTable([
+                [
+                  { data: 'Status', header: true },
+                  { data: 'Name', header: true },
+                  { data: 'Diff %', header: true },
+                ],
+                ...rows,
+              ])
 
               if (diffImages.length) {
-                ghCore.summary.addHeading('Differences', 3).write()
+                ghCore.summary.addHeading('Differences', 3)
                 for (const { name, diffImagePath } of diffImages) {
                   ghCore.summary.addImage(diffImagePath, name)
                 }
               }
+
+              ghCore.summary.write()
             } else {
               console.log('spec %s', specName)
               console.table(['Status', 'Name', 'Diff %'], rows)
