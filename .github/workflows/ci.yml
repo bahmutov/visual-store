@@ -29,12 +29,18 @@ jobs:
       # https://github.com/cypress-io/github-action
       - name: Cypress tests 🧪
         uses: cypress-io/github-action@v6
+        # notice the "e2e" identifier for this tep
+        # later steps can refer to the outputs of this steps
+        # as "steps.e2e.outputs.visual_status" and "steps.e2e.outputs.visual_description
         id: e2e
         with:
           start: npm start
           wait-on: 'http://127.0.0.1:3000'
 
-      - name: Set final visual status 🎨
+      # set the final visual status for the current commit
+      # using myrotvorets/set-commit-status-action action
+      # based on the status set in the "e2e" step
+      - name: Set the final visual status 🎨
         # https://github.com/myrotvorets/set-commit-status-action
         uses: myrotvorets/set-commit-status-action@v2.0.1
         if: always()
