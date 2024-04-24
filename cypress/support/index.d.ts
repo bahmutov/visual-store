@@ -1,4 +1,7 @@
 /// <reference types="cypress" />
+
+type ImageDiffOptions = { mode: 'sync' | 'async' }
+
 declare namespace Cypress {
   interface Chainable {
     /**
@@ -10,7 +13,7 @@ declare namespace Cypress {
      * @example
      *  cy.imageDiff('landing-page')
      */
-    imageDiff(name: string): void
+    imageDiff(name: string, options: ImageDiffOptions): void
 
     /**
      * Fill the current form (the parent subject)

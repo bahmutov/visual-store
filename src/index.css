@@ -19,18 +19,6 @@ input {
   border-radius: 0;
   color: #484c55;
 }
-/* dark color theme */
-@media (prefers-color-scheme: dark) {
-  input {
-    background-color: #262933;
-    color: #daddfe !important;
-    padding-left: 1rem !important;
-  }
-  .input_error {
-    border-bottom: 2px solid #232323 !important;
-    border-bottom-color: #232323 !important;
-  }
-}
 
 .page_wrapper {
   display: flex;

@@ -1,0 +1,10 @@
+it('takes several login screenshots', () => {
+  cy.visit('/')
+  cy.get('#login_button_container').should('be.visible')
+  cy.imageDiff('01-login-page', { mode: 'async' })
+  cy.get('#user-name').type('wrong username')
+  cy.get('#password').type('wrong password')
+  cy.get('#login-button').click()
+  cy.get('.error-message-container').should('be.visible')
+  cy.imageDiff('02-login-page-error', { mode: 'async' })
+})

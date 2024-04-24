@@ -10,6 +10,71 @@ const { compare } = require('odiff-bin')
 
 const fastify = require('fastify')
 
+async function diffAnImage(options, config) {
+  if (!options) {
+    throw new Error('Missing diff options')
+  }
+  const { screenshotPath, goldPath } = options
+  if (!fs.existsSync(goldPath)) {
+    console.log('New image %s', screenshotPath)
+    if (config.env.failOnMissingGoldImage) {
+      console.error('Missing gold image %s', goldPath)
+      console.error(
+        'Adding new gold images not allowed failOnMissingGoldImage=true',
+      )
+      throw new Error(`Missing gold image ${goldPath}`)
+    }
+
+    console.log('Copied to %s', goldPath)
+    // ensure the target folder exists
+    const goldFolder = path.dirname(goldPath)
+    if (!fs.existsSync(goldFolder)) {
+      fs.mkdirSync(goldFolder, { recursive: true })
+      console.log('Created folder %s', goldFolder)
+    }
+    fs.copyFileSync(screenshotPath, goldPath)
+    return {
+      match: true,
+      newImage: true,
+      reason: 'Copied new image to gold',
+    }
+  } else {
+    const basename = path.basename(screenshotPath, '.png')
+    const diffImagePath = path.join(
+      config.screenshotsFolder,
+      `${basename}-diff.png`,
+    )
+    const options = {
+      diffColor: '#ff00ff', // cyan
+      antialiasing: true,
+      threshold: 0.1,
+    }
+    const result = await compare(
+      goldPath,
+      screenshotPath,
+      diffImagePath,
+      options,
+    )
+    console.log('diffing %s and %s', screenshotPath, goldPath)
+    console.log('with result diff in image %s', diffImagePath)
+    console.dir(result)
+
+    // if we work on a PR we want to update the Gold images
+    // so that the user reviews the changes
+    if (result.match === false && config.env.updateGoldImages) {
+      console.log('Updating gold image %s', goldPath)
+      fs.copyFileSync(screenshotPath, goldPath)
+      result.match = true
+      result.reason = 'Updated gold image'
+    }
+
+    return {
+      ...result,
+      diffImagePath,
+    }
+  }
+}
+
 module.exports = defineConfig({
   e2e: {
     // baseUrl, etc
@@ -44,12 +109,13 @@ module.exports = defineConfig({
     },
     setupNodeEvents(cypressOn, config) {
       // fix https://github.com/cypress-io/cypress/issues/22428
-      const on = cypressOnFix(cypressOn)
+      // const on = cypressOnFix(cypressOn)
+      const on = cypressOn
       // implement node event listeners here
       // and load any plugins that require the Node environment
       // https://github.com/bahmutov/cypress-split
-      cypressSplit(on, config)
-      registerDataSession(on, config)
+      // cypressSplit(on, config)
+      // registerDataSession(on, config)
       // https://github.com/bahmutov/cypress-watch-and-reload
       require('cypress-watch-and-reload/plugins')(on, config)
 
@@ -93,7 +159,32 @@ module.exports = defineConfig({
         console.log('image server listening on port 9555')
       })
 
+      const imagesToDiff = []
+      on('before:run', () => {
+        imagesToDiff.length = 0
+      })
+      on('after:run', async () => {
+        if (imagesToDiff.length) {
+          console.log('Need to diff %d images', imagesToDiff.length)
+          for (const options of imagesToDiff) {
+            console.log('diffing %s', options.screenshotPath)
+            await diffAnImage(options, config)
+          }
+        }
+      })
+
       on('task', {
+        rememberToDiffImage(options) {
+          const { screenshotPath, goldPath } = options
+          console.log(
+            '💾 Remember to diff images\n - %s\n - %s',
+            screenshotPath,
+            goldPath,
+          )
+          imagesToDiff.push(options)
+          return null
+        },
+
         approveImage(options) {
           const { screenshotPath, goldPath } = options
           console.log(
@@ -112,69 +203,8 @@ module.exports = defineConfig({
           return null
         },
 
-        async diffImage(options) {
-          if (!options) {
-            throw new Error('Missing diff options')
-          }
-          const { screenshotPath, goldPath } = options
-          if (!fs.existsSync(goldPath)) {
-            console.log('New image %s', screenshotPath)
-            if (config.env.failOnMissingGoldImage) {
-              console.error('Missing gold image %s', goldPath)
-              console.error(
-                'Adding new gold images not allowed failOnMissingGoldImage=true',
-              )
-              throw new Error(`Missing gold image ${goldPath}`)
-            }
-
-            console.log('Copied to %s', goldPath)
-            // ensure the target folder exists
-            const goldFolder = path.dirname(goldPath)
-            if (!fs.existsSync(goldFolder)) {
-              fs.mkdirSync(goldFolder, { recursive: true })
-              console.log('Created folder %s', goldFolder)
-            }
-            fs.copyFileSync(screenshotPath, goldPath)
-            return {
-              match: true,
-              newImage: true,
-              reason: 'Copied new image to gold',
-            }
-          } else {
-            const basename = path.basename(screenshotPath, '.png')
-            const diffImagePath = path.join(
-              config.screenshotsFolder,
-              `${basename}-diff.png`,
-            )
-            const options = {
-              diffColor: '#ff00ff', // cyan
-              antialiasing: true,
-              threshold: 0.1,
-            }
-            const result = await compare(
-              goldPath,
-              screenshotPath,
-              diffImagePath,
-              options,
-            )
-            console.log('diffing %s and %s', screenshotPath, goldPath)
-            console.log('with result diff in image %s', diffImagePath)
-            console.dir(result)
-
-            // if we work on a PR we want to update the Gold images
-            // so that the user reviews the changes
-            if (result.match === false && config.env.updateGoldImages) {
-              console.log('Updating gold image %s', goldPath)
-              fs.copyFileSync(screenshotPath, goldPath)
-              result.match = true
-              result.reason = 'Updated gold image'
-            }
-
-            return {
-              ...result,
-              diffImagePath,
-            }
-          }
+        diffImage(options) {
+          return diffAnImage(options, config)
         },
       })
 
