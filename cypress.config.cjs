@@ -168,14 +168,20 @@ module.exports = defineConfig({
       })
       on('after:run', async () => {
         if (imagesToDiff.length) {
-          // output github summary rows
-          const rows = []
+          const title = `Visual testing: ${imagesToDiff.length} images diffed`
+          if (process.env.GITHUB_ACTIONS) {
+            ghCore.summary.addHeading(title).write()
+          } else {
+            console.log(title)
+          }
 
           console.log('Need to diff %d images', imagesToDiff.length)
           const bySpec = _.groupBy(imagesToDiff, (o) => o.relativeSpecName)
           for (const specName of Object.keys(bySpec)) {
             console.log('diffing images for spec %s', specName)
             const images = bySpec[specName]
+            // output github summary rows for this spec
+            const rows = []
 
             for (const options of images) {
               const result = await diffAnImage(options, config)
@@ -187,24 +193,23 @@ module.exports = defineConfig({
                 rows.push(['❌', options.name, String(result.diffPercentage)])
               }
             }
-          }
 
-          const title = `${imagesToDiff.length} images diffed`
-          if (process.env.GITHUB_ACTIONS) {
-            ghCore.summary
-              .addHeading(title)
-              .addTable([
-                [
-                  { data: 'Status', header: true },
-                  { data: 'Name', header: true },
-                  { data: 'Diff %', header: true },
-                ],
-                ...rows,
-              ])
-              .write()
-          } else {
-            console.log(title)
-            console.table(['Status', 'Name', 'Diff %'], rows)
+            if (process.env.GITHUB_ACTIONS) {
+              ghCore.summary
+                .addHeading(specName, 2)
+                .addTable([
+                  [
+                    { data: 'Status', header: true },
+                    { data: 'Name', header: true },
+                    { data: 'Diff %', header: true },
+                  ],
+                  ...rows,
+                ])
+                .write()
+            } else {
+              console.log('spec %s', specName)
+              console.table(['Status', 'Name', 'Diff %'], rows)
+            }
           }
         }
       })
