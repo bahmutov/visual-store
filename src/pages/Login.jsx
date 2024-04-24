@@ -30,6 +30,10 @@ function Login(props) {
     setError('')
   }
 
+  // class names
+  const botImages = ['bot_image1', 'bot_image2', 'bot_image3']
+  const randomBotImage = botImages[Math.floor(Math.random() * botImages.length)]
+
   const handleSubmit = (evt) => {
     evt.preventDefault()
     if (!username) {
@@ -117,7 +121,7 @@ function Login(props) {
             </div>
           </div>
 
-          <div className="bot_column" />
+          <div className={'bot_column ' + randomBotImage} />
         </div>
         <div className="login_credentials_wrap">
           <div className="login_credentials_wrap-inner">
