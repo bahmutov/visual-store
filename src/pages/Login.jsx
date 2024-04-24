@@ -12,6 +12,10 @@ import InputError, { INPUT_TYPES } from '../components/InputError'
 import SubmitButton from '../components/SubmitButton'
 import ErrorMessage from '../components/ErrorMessage'
 
+// class names
+const botImages = ['bot_image1', 'bot_image2', 'bot_image3']
+const randomBotImage = botImages[Math.floor(Math.random() * botImages.length)]
+
 function Login(props) {
   const { history, location } = props
   const [error, setError] = useState('')
@@ -29,10 +33,6 @@ function Login(props) {
   const dismissError = () => {
     setError('')
   }
-
-  // class names
-  const botImages = ['bot_image1', 'bot_image2', 'bot_image3']
-  const randomBotImage = botImages[Math.floor(Math.random() * botImages.length)]
 
   const handleSubmit = (evt) => {
     evt.preventDefault()

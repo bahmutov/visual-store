@@ -1,12 +1,14 @@
-it('handles the difference in robot images', () => {
+it('diffs an element', () => {
   cy.visit('/')
-  cy.get('#login_button_container').should('be.visible')
-  // image diff the entire page
-  // but ignore any element with the class "bot_column"
-  // see the cy.imageDiff JSDoc documentation
-  // in the file cypress/support/index.d.ts
-  cy.imageDiff('01-login-page', {
-    mode: 'sync',
-    ignoreElements: '.bot_column',
-  })
+  // test diff the element with class "login_credentials_wrap-inner"
+  // but first confirm it is visible and includes the text
+  // "Accepted usernames are:"
+  // Use name "credentials" for the diff image
+  //
+  // Hint: cy.imageDiff is a dual command
+  // https://on.cypress.io/custom-commands
+  cy.get('.login_credentials_wrap-inner')
+    .should('be.visible')
+    .and('include.text', 'Accepted usernames are:')
+    .imageDiff('credentials')
 })

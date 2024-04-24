@@ -18,13 +18,17 @@ declare namespace Cypress {
      * using the cy.task "diffImage". If the image is new (per-platform)
      * then it is copied to the "cypress/gold" folder.
      * If the image does not match, throws an error. The diff images
-     * are saved to the screenshots folder.
+     * are saved to the screenshots folder. By default, the image diffing
+     * is synchronous.
      * @example
      *  cy.imageDiff('landing-page', {mode: 'sync'})
      * @example
      *  cy.imageDiff('landing-page', {mode: 'sync', ignoreElements: '.footer'})
+     * @example
+     *  // You can take image diffs of an element
+     *  cy.get('menu').imageDiff('menu')
      */
-    imageDiff(name: string, options: ImageDiffOptions): void
+    imageDiff(name: string, options?: ImageDiffOptions): void
 
     /**
      * Fill the current form (the parent subject)
