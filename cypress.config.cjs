@@ -177,7 +177,7 @@ module.exports = defineConfig({
           const imagesText = pluralize('image', imagesToDiff.length, true)
           const title = `Visual testing: ${specsText}, ${imagesText}`
           if (process.env.GITHUB_ACTIONS) {
-            ghCore.summary.addHeading(title).write()
+            ghCore.summary.addHeading(title)
           } else {
             console.log(title)
           }
