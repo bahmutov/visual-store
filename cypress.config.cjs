@@ -221,10 +221,10 @@ module.exports = defineConfig({
               if (diffImages.length) {
                 ghCore.summary.addHeading('Differences', 3)
                 for (const { name, diffImagePath } of diffImages) {
-                  const img = fs.readFileSync(filePath)
+                  const img = fs.readFileSync(diffImagePath)
                   const base64Image = Buffer.from(img).toString('base64')
                   const imageSource = `data:image/png;base64,${base64Image}`
-                  ghCore.summary.addImage(imageSource, name)
+                  ghCore.summary.addHeading(name, 4).addImage(imageSource, name)
                 }
               }
 
