@@ -17,7 +17,9 @@
     "web-vitals": "^1.1.1"
   },
   "devDependencies": {
+    "@actions/core": "^1.10.1",
     "@vitejs/plugin-react": "^4.2.1",
+    "console.table": "^0.10.0",
     "cypress": "^13.7.3",
     "cypress-cdp": "^1.4.17",
     "cypress-data-session": "^2.8.2",

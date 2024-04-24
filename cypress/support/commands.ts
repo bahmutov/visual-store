@@ -39,6 +39,7 @@ Cypress.Commands.add(
       const relativeScreenshotPath = path.relative(rootFolder, screenshotPath)
 
       const diffOptions = {
+        name,
         screenshotPath: relativeScreenshotPath,
         goldPath: diffName,
         relativeSpecName: Cypress.spec.relative,

@@ -8,6 +8,8 @@ const path = require('path')
 const fs = require('fs')
 const { compare } = require('odiff-bin')
 const _ = require('lodash')
+const ghCore = require('@actions/core')
+require('console.table')
 
 const fastify = require('fastify')
 
@@ -166,14 +168,42 @@ module.exports = defineConfig({
       })
       on('after:run', async () => {
         if (imagesToDiff.length) {
+          // output github summary rows
+          const rows = []
+
           console.log('Need to diff %d images', imagesToDiff.length)
           const bySpec = _.groupBy(imagesToDiff, (o) => o.relativeSpecName)
           for (const specName of Object.keys(bySpec)) {
             console.log('diffing images for spec %s', specName)
             const images = bySpec[specName]
+
             for (const options of images) {
-              await diffAnImage(options, config)
+              const result = await diffAnImage(options, config)
+              if (result.newImage) {
+                rows.push(['🖼️', options.name])
+              } else if (result.match === true) {
+                rows.push(['✅', options.name])
+              } else {
+                rows.push(['❌', options.name])
+              }
             }
+          }
+
+          const title = `${imagesToDiff.length} images diffed`
+          if (process.env.GITHUB_ACTIONS) {
+            ghCore.summary
+              .addHeading(title)
+              .addTable([
+                [
+                  { data: 'Status', header: true },
+                  { data: 'Name', header: true },
+                ],
+                ...rows,
+              ])
+              .write()
+          } else {
+            console.log(title)
+            console.table(['Status', 'Name'], rows)
           }
         }
       })
