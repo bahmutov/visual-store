@@ -1,17 +1,16 @@
 it('handles the difference in robot images', () => {
-  // intercept the outgoing request to any of the robot images
-  // that have form like '**/Login_Bot_graphic*.png'
-  // and replace it with the fixture image "robot-placeholder.png"
-  // https://on.cypress.io/intercept
-  cy.intercept('GET', '**/Login_Bot_graphic*.png', {
-    fixture: 'robot-placeholder.png',
-  })
-    // give the intercept an alias "botImage"
-    .as('botImage')
   cy.visit('/')
   cy.get('#login_button_container').should('be.visible')
-  // confirm the bot image intercept was used
-  // https://on.cypress.io/wait
-  cy.wait('@botImage')
+  // load the robot placeholder fixture using "base64" encoding
+  // https://on.cypress.io/fixture
+  cy.fixture('robot-placeholder.png', 'base64').then((image) => {
+    // form a base64 encoded image URL
+    // and set it as the background image of the element ".bot_column"
+    // tip: the CSS property "background-image" required
+    // the form "url('data:image/png;base64,...')"
+    const base64 = `url("data:image/png;base64,${image}")`
+    cy.get('.bot_column').invoke('css', 'background-image', base64)
+  })
+  // now the image diff should be stable and pass
   cy.imageDiff('01-login-page', { mode: 'sync' })
 })
