@@ -38,8 +38,7 @@
     "vite-plugin-svgr": "^4.2.0"
   },
   "scripts": {
-    "start": "run-p start:web server",
-    "start:web": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "cypress run",
@@ -55,8 +54,7 @@
     "only:warn": "stop-only --warn --folder cypress/e2e --folder src",
     "names": "find-cypress-specs --names",
     "names:component": "find-cypress-specs --names --component",
-    "badge:tests": "find-cypress-specs --test-counts --update-badge",
-    "server": "node ./server.cjs"
+    "badge:tests": "find-cypress-specs --test-counts --update-badge"
   },
   "browserslist": {
     "production": [

@@ -20,3 +20,11 @@
   text-transform: uppercase;
   width: 100%;
 }
+
+@media print {
+  .submit-button {
+    background-color: #ffffff !important;
+    border: 2px solid #191313 !important;
+    color: #191313 !important;
+  }
+}

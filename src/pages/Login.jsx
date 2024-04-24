@@ -17,7 +17,6 @@ function Login(props) {
   const [error, setError] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [stats, setStats] = useState(null)
 
   useEffect(() => {
     if (location.state) {
@@ -26,21 +25,6 @@ function Login(props) {
       )
     }
   }, [location.state])
-
-  useEffect(async () => {
-    const response = await fetch('http://localhost:4200/stats', {
-      cors: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    if (!response.ok) {
-      console.error(response)
-      throw new Error('Failed to fetch')
-    }
-    const data = await response.json()
-    setStats(data)
-  }, [])
 
   const dismissError = () => {
     setError('')
@@ -83,8 +67,6 @@ function Login(props) {
   const handlePassChange = (evt) => {
     setPassword(evt.target.value)
   }
-
-  const lastLogin = new Date().toLocaleTimeString('en-US')
 
   return (
     <div>
@@ -154,18 +136,6 @@ function Login(props) {
               <h4>Password for all users:</h4>
               secret_sauce
             </div>
-          </div>
-          <div className="login_credentials_wrap-inner">
-            {stats && (
-              <div id="login_stats" className="login_stats">
-                Items for sale{' '}
-                <span className="total-items">{stats.totalItems}</span>
-                <div>
-                  Last sold item{' '}
-                  <span className="last-item">{stats.lastSoldItem}</span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
