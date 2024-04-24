@@ -184,7 +184,7 @@ module.exports = defineConfig({
               } else if (result.match === true) {
                 rows.push(['✅', options.name])
               } else {
-                rows.push(['❌', options.name, result.diffPercentage])
+                rows.push(['❌', options.name, String(result.diffPercentage)])
               }
             }
           }
