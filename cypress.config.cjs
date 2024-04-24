@@ -180,9 +180,9 @@ module.exports = defineConfig({
             for (const options of images) {
               const result = await diffAnImage(options, config)
               if (result.newImage) {
-                rows.push(['🖼️', options.name])
+                rows.push(['🖼️', options.name, '--'])
               } else if (result.match === true) {
-                rows.push(['✅', options.name])
+                rows.push(['✅', options.name, '--'])
               } else {
                 rows.push(['❌', options.name, String(result.diffPercentage)])
               }
