@@ -187,7 +187,6 @@ module.exports = defineConfig({
             const images = bySpec[specName]
             // output github summary rows for this spec
             const rows = []
-            const diffImages = []
 
             for (const options of images) {
               const result = await diffAnImage(options, config)
@@ -201,10 +200,6 @@ module.exports = defineConfig({
                   options.name,
                   result.diffPercentage.toFixed(3),
                 ])
-                diffImages.push({
-                  name: options.name,
-                  diffImagePath: result.diffImagePath,
-                })
               }
             }
 
@@ -217,16 +212,6 @@ module.exports = defineConfig({
                 ],
                 ...rows,
               ])
-
-              if (diffImages.length) {
-                ghCore.summary.addHeading('Differences', 3)
-                for (const { name, diffImagePath } of diffImages) {
-                  const img = fs.readFileSync(diffImagePath)
-                  const base64Image = Buffer.from(img).toString('base64')
-                  const imageSource = `data:image/png;base64,${base64Image}`
-                  ghCore.summary.addHeading(name, 4).addImage(imageSource, name)
-                }
-              }
 
               ghCore.summary.write()
             } else {
