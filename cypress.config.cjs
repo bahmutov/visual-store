@@ -229,6 +229,17 @@ module.exports = defineConfig({
           const countsText = `Visual testing: ${newImages} 🖼️ ${matchingImages} ✅ ${differentImages} ❌`
           if (process.env.GITHUB_ACTIONS) {
             ghCore.summary.addRaw(countsText, true).write()
+            // set the job outputs
+            ghCore.setOutput('new_images', newImages)
+            ghCore.setOutput('matching_images', matchingImages)
+            ghCore.setOutput('different_images', differentImages)
+            const countsWords = `${newImages} new images ${matchingImages} matching ${differentImages} different`
+            ghCore.setOutput('visual_description', countsWords)
+            // match the github action status
+            ghCore.setOutput(
+              'visual_status',
+              differentImages > 0 ? 'failure' : 'success',
+            )
           } else {
             console.log(countsText)
           }

@@ -12,16 +12,37 @@ jobs:
       # Give the default GITHUB_TOKEN write permission to commit and push the
       # added or changed files to the repository.
       contents: write
+      statuses: write
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
+      - name: Set pending visual status 🎨
+        # https://github.com/myrotvorets/set-commit-status-action
+        uses: myrotvorets/set-commit-status-action@v2.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: pending
+          context: Visual
+          description: Visual tests are running
+
       # https://github.com/cypress-io/github-action
       - name: Cypress tests 🧪
         uses: cypress-io/github-action@v6
+        id: e2e
         with:
           start: npm start
           wait-on: 'http://127.0.0.1:3000'
+
+      - name: Set final visual status 🎨
+        # https://github.com/myrotvorets/set-commit-status-action
+        uses: myrotvorets/set-commit-status-action@v2.0.1
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ steps.e2e.outputs.visual_status }}
+          context: Visual
+          description: ${{ steps.e2e.outputs.visual_description }}
 
       # after the test run completes store the screenshots and diffs
       - name: Save screenshots 📸
