@@ -8,6 +8,7 @@ const path = require('path')
 const fs = require('fs')
 const { compare } = require('odiff-bin')
 const _ = require('lodash')
+const pluralize = require('pluralize')
 const ghCore = require('@actions/core')
 require('console.table')
 
@@ -168,16 +169,20 @@ module.exports = defineConfig({
       })
       on('after:run', async () => {
         if (imagesToDiff.length) {
-          const title = `Visual testing: ${imagesToDiff.length} images diffed`
+          console.log('Need to diff %d images', imagesToDiff.length)
+          const bySpec = _.groupBy(imagesToDiff, (o) => o.relativeSpecName)
+          const specNames = Object.keys(bySpec)
+
+          const specsText = pluralize('spec', specNames.length, true)
+          const imagesText = pluralize('image', imagesToDiff.length, true)
+          const title = `Visual testing: ${specsText}, ${imagesText}`
           if (process.env.GITHUB_ACTIONS) {
             ghCore.summary.addHeading(title).write()
           } else {
             console.log(title)
           }
 
-          console.log('Need to diff %d images', imagesToDiff.length)
-          const bySpec = _.groupBy(imagesToDiff, (o) => o.relativeSpecName)
-          for (const specName of Object.keys(bySpec)) {
+          for (const specName of specNames) {
             console.log('diffing images for spec %s', specName)
             const images = bySpec[specName]
             // output github summary rows for this spec
