@@ -182,6 +182,10 @@ module.exports = defineConfig({
             console.log(title)
           }
 
+          let newImages = 0
+          let matchingImages = 0
+          let differentImages = 0
+
           for (const specName of specNames) {
             console.log('diffing images for spec %s', specName)
             const images = bySpec[specName]
@@ -191,10 +195,13 @@ module.exports = defineConfig({
             for (const options of images) {
               const result = await diffAnImage(options, config)
               if (result.newImage) {
+                newImages += 1
                 rows.push(['🖼️', options.name, '--'])
               } else if (result.match === true) {
+                matchingImages += 1
                 rows.push(['✅', options.name, '--'])
               } else {
+                differentImages += 1
                 rows.push([
                   '❌',
                   options.name,
@@ -212,12 +219,18 @@ module.exports = defineConfig({
                 ],
                 ...rows,
               ])
-
-              ghCore.summary.write()
             } else {
               console.log('spec %s', specName)
               console.table(['Status', 'Name', 'Diff %'], rows)
             }
+          }
+
+          // end of all diffing
+          const countsText = `Visual testing: ${newImages} 🖼️ ${matchingImages} ✅ ${differentImages} ❌`
+          if (process.env.GITHUB_ACTIONS) {
+            ghCore.summary.addRaw(countsText, true).write()
+          } else {
+            console.log(countsText)
           }
         }
       })
