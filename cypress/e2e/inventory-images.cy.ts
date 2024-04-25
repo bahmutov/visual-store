@@ -8,43 +8,37 @@ describe('Regular user', { viewportHeight: 1200 }, () => {
     cy.visit('/inventory')
   })
 
-  it('sees unique thumbnail images', () => {
-    // get all inventory item images
-    // and confirm there are more than 3 items
-    cy.get('img.inventory_item_img')
-      .should('have.length.greaterThan', 3)
-      // get the attribute "src" from each element
-      .mapInvoke('getAttribute', 'src')
-      // and pass it to a "should(callback)" function
-      .should((urls: string[]) => {
-        // we want to confirm the following in these image urls:
-        // all urls should be unique
-        const unique = Cypress._.uniq(urls)
-        expect(unique, 'image urls').to.have.length(urls.length)
-        // no url includes "sl-404" string
-        urls.forEach((url, k) => {
-          expect(url, `url ${k + 1}`).to.not.include('sl-404')
-        })
-      })
+  it('loads the robot pic in the footer', () => {
+    // get the footer robot image using its "alt" attribute
+    // "Swag Bot Footer" and confirm it has loaded
+    // Tip: use the "naturalWidth" property of the image
+    // https://glebbahmutov.com/cypress-examples/recipes/image-loaded.html
+    cy.get('[alt="Swag Bot Footer"]')
+      .should('have.prop', 'naturalWidth')
+      .should('be.greaterThan', 0)
   })
 
-  it('loads every image', () => {
-    // iterate over every image on the page
+  it.only('loads every product image', () => {
+    // iterate over every image in the inventory list
     // https://on.cypress.io/get
     // https://on.cypress.io/each
     // confirm the image element has loaded using its naturalWidth property
     // Tip: include the alt text in the assertion message
-    cy.get('img').each(($image: JQuery<HTMLImageElement>) => {
-      // $image is a jQuery object with a single IMG element inside
-      const src = $image[0].src
-      // src could be data images or pretty long URL
-      // let's skip the middle part
-      const short = src.slice(0, 20) + '...' + src.slice(src.length - 20)
-      const alt = $image[0].alt
-      expect(
-        $image[0].naturalWidth,
-        `natural width for "${alt}"`,
-      ).to.be.greaterThan(0)
-    })
+    cy.get('.inventory_container img').each(
+      ($image: JQuery<HTMLImageElement>) => {
+        // $image is a jQuery object with a single IMG element inside
+        const alt = $image[0].alt
+        expect(
+          $image[0].naturalWidth,
+          `natural width for "${alt}"`,
+        ).to.be.greaterThan(0)
+      },
+    )
+
+    // now use a single visual assertion to capture the inventory list
+    // do you see the robot claws picking from the top of the captured image?
+    // can you remove that robot first before taking the screenshot
+    cy.get('.peek').invoke('remove')
+    cy.get('.inventory_container').imageDiff('inventory-list')
   })
 })
