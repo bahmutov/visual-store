@@ -16,7 +16,11 @@ const Cart = ({ history }) => {
     <div id="page_wrapper" className="page_wrapper">
       <div id="contents_wrapper">
         <HeaderContainer secondaryTitle="Your Cart" />
-        <div id="cart_contents_container" className="cart_contents_container">
+        <div
+          id="cart_contents_container"
+          data-test="CartContents"
+          className="cart_contents_container"
+        >
           <div>
             <div className="cart_list">
               <div className="cart_quantity_label">QTY</div>
@@ -46,7 +50,7 @@ const Cart = ({ history }) => {
                   history.push(ROUTES.CHECKOUT_STEP_ONE)
                 }}
                 size={BUTTON_SIZES.MEDIUM}
-                testId="checkout"
+                testId="CartCheckout"
                 type={BUTTON_TYPES.ACTION}
                 disabled={contents.length === 0}
               />

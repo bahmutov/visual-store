@@ -33,6 +33,7 @@ const CartItem = ({ item, history, showButton }) => {
     return (
       <div
         className="cart_item"
+        data-test="CartItem"
         data-item-id={item.id}
         data-item-quantity={shoppingCartItem.n}
       >
@@ -40,6 +41,7 @@ const CartItem = ({ item, history, showButton }) => {
           type="number"
           className="cart_quantity"
           value={shoppingCartItem.n}
+          data-test="CartQuantity"
           onChange={(evt) => {
             console.log(evt.target.valueAsNumber)
             const n = Number.isNaN(evt.target.valueAsNumber)

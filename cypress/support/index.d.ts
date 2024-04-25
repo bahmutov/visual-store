@@ -45,6 +45,6 @@ declare namespace Cypress {
      * @example
      *  getByTest('checkout').should('be.visible')
      */
-    getByTest(testId: string): Chainable<JQuery<HTMLElement>>
+    getByTest(testId: string, text?: string): Chainable<JQuery<HTMLElement>>
   }
 }
