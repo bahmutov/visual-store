@@ -98,6 +98,8 @@ module.exports = defineConfig({
     viewportHeight: 1200,
     scrollBehavior: 'center',
     env: {
+      grepFilterSpecs: true,
+      grepOmitFiltered: true,
       users: {
         standard: {
           username: 'standard_user',
@@ -132,6 +134,9 @@ module.exports = defineConfig({
       // registerDataSession(on, config)
       // https://github.com/bahmutov/cypress-watch-and-reload
       require('cypress-watch-and-reload/plugins')(on, config)
+
+      // https://github.com/bahmutov/cy-grep
+      require('@bahmutov/cy-grep/src/plugin')(config)
 
       // Create a local server to receive image approval
       const server = fastify({ logger: true })

@@ -11,5 +11,9 @@ import 'cypress-cdp'
 // @ts-ignore
 require('cypress-watch-and-reload/support')
 
+// @ts-ignore
+import registerCypressGrep from '@bahmutov/cy-grep'
+registerCypressGrep()
+
 // import custom commands
 import './commands'
