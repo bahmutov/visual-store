@@ -54,7 +54,7 @@ const Inventory = () => {
   }
 
   return (
-    <div id="page_wrapper" className="page_wrapper">
+    <div id="page_wrapper" className="page_wrapper" data-test="InventoryPage">
       <div id="contents_wrapper">
         <HeaderContainer
           secondaryTitle="Products"

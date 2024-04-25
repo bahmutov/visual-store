@@ -47,7 +47,8 @@ const InventoryListItem = (props) => {
     const label = itemInCart ? 'Remove' : 'Add to cart'
     const onClick = itemInCart ? () => removeFromCart(id) : () => addToCart(id)
     const type = itemInCart ? BUTTON_TYPES.SECONDARY : BUTTON_TYPES.PRIMARY
-    const testId = `${label}-${item}`.replace(/\s+/g, '-').toLowerCase()
+    // const testId = `${label}-${item}`.replace(/\s+/g, '-').toLowerCase()
+    const testId = 'ItemActionButton'
 
     return (
       <Button
@@ -63,7 +64,11 @@ const InventoryListItem = (props) => {
   const url = isProblemUser() ? 'sl-404.jpg' : image_url
 
   return (
-    <div className="inventory_item" data-itemid={id}>
+    <div
+      className="inventory_item"
+      data-itemid={id}
+      data-test="InventoryPageItem"
+    >
       <div className="inventory_item_img">
         <a
           href="#"
@@ -83,6 +88,7 @@ const InventoryListItem = (props) => {
       <div className="inventory_item_description">
         <div className="inventory_item_label">
           <a
+            data-test="ItemTitle"
             href="#"
             id={`item_${id}_title_link`}
             onClick={(evt) => {
@@ -95,7 +101,9 @@ const InventoryListItem = (props) => {
           <div className="inventory_item_desc">{desc}</div>
         </div>
         <div className="pricebar">
-          <div className="inventory_item_price">${price}</div>
+          <div className="inventory_item_price" data-test="ItemPrice">
+            ${price}
+          </div>
           <ButtonType id={id} itemInCart={itemInCart} item={name} />
         </div>
       </div>

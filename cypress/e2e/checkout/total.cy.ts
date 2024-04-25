@@ -32,13 +32,13 @@ describe('Checkout', { viewportHeight: 1200 }, () => {
     // visit the page checkout-step-one.html directly
     // skipping the inventory page
     // https://on.cypress.io/visit
-    cy.visit('/checkout-step-one.html')
+    cy.visit('/checkout-step-one')
 
     // fill the check out form with values "Joe Smith 90210"
     CheckoutPage.fillInformationForm().submit()
     // we should be on the checkout step two page
     // https://on.cypress.io/location
-    cy.location('pathname').should('equal', '/checkout-step-two.html')
+    cy.location('pathname').should('equal', '/checkout-step-two')
     // the overview page shows the expected number of picked items
     cy.get('.cart_list .cart_item').should('have.length', pickedItems.length)
     // grab the "price" property from each picked item
@@ -79,7 +79,7 @@ describe('Checkout', { viewportHeight: 1200 }, () => {
     // use the checkout POM to fill the user information and submit it
     CheckoutPage.fillInformationForm().submit()
     // the app moves to the checkout step two
-    cy.location('pathname').should('equal', '/checkout-step-two.html')
+    cy.location('pathname').should('equal', '/checkout-step-two')
     // the cart item should have the item by name
     // with value of 2
     cy.contains('.cart_item', name)

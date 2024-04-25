@@ -80,7 +80,7 @@ function Login(props) {
         <div className="login_wrapper-inner">
           <div id="login_button_container" className="form_column">
             <div className="login-box">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} data-test="LoginForm">
                 <InputError
                   isError={Boolean(error)}
                   type={INPUT_TYPES.TEXT}

@@ -31,7 +31,7 @@ describe('Checkout', () => {
     // visit the page checkout-step-one.html directly
     // skipping the inventory page
     // https://on.cypress.io/visit
-    cy.visit('/checkout-step-one.html')
+    cy.visit('/checkout-step-one')
 
     // fill the check out form with values "Joe Smith 90210"
     // and click the "Continue" element after confirming
@@ -42,7 +42,7 @@ describe('Checkout', () => {
     CheckoutPage.fillInformationForm().submit()
     // we should be on the checkout step two page
     // https://on.cypress.io/location
-    cy.location('pathname').should('equal', '/checkout-step-two.html')
+    cy.location('pathname').should('equal', '/checkout-step-two')
     // the overview page shows the expected number of picked items
     cy.get('.cart_list .cart_item').should('have.length', pickedItems.length)
 

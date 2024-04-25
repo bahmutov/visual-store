@@ -11,7 +11,7 @@ describe('anonymous user', () => {
     LoginPage.getError()
       .should('be.visible')
       .and('include.text', 'Epic sadface')
-      .and('include.text', 'inventory.html')
+      .and('include.text', '/inventory')
     // https://on.cypress.io/contains
     // confirm the username and the password fields
     // have the error class included

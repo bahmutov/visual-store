@@ -19,7 +19,7 @@ describe('Checkout', { viewportHeight: 1200 }, () => {
   it('cancels checkout', () => {
     const ids = Cypress._.map(InventoryData, 'id').map((id) => ({ id, n: 1 }))
     window.localStorage.setItem('cart-contents', JSON.stringify(ids))
-    cy.visit('/checkout-step-one.html')
+    cy.visit('/checkout-step-one')
     cy.contains('button', 'Cancel').click()
     cy.log('**back at the cart page**')
     cy.location('pathname').should('equal', '/cart')
@@ -28,7 +28,7 @@ describe('Checkout', { viewportHeight: 1200 }, () => {
   it('requires all inputs', () => {
     const ids = Cypress._.map(InventoryData, 'id').map((id) => ({ id, n: 1 }))
     window.localStorage.setItem('cart-contents', JSON.stringify(ids))
-    cy.visit('/checkout-step-one.html')
+    cy.visit('/checkout-step-one')
     cy.get('input[type=submit]').click()
     cy.contains('[data-test=error]', 'Error: First Name is required').should(
       'be.visible',
@@ -45,7 +45,7 @@ describe('Checkout', { viewportHeight: 1200 }, () => {
     )
     cy.get('[data-test="postalCode"]').type('90210')
     cy.get('input[type=submit]').click()
-    cy.location('pathname').should('equal', '/checkout-step-two.html')
+    cy.location('pathname').should('equal', '/checkout-step-two')
   })
 
   it('goes through the check out pages', () => {
@@ -65,11 +65,11 @@ describe('Checkout', { viewportHeight: 1200 }, () => {
     cy.contains('button', 'Checkout').click()
     // we should be on the checkout step one page
     // https://on.cypress.io/location
-    cy.location('pathname').should('equal', '/checkout-step-one.html')
+    cy.location('pathname').should('equal', '/checkout-step-one')
     // fill the check out form with values "Joe Smith 90210"
     CheckoutPage.fillInformationForm().submit()
     // we should be on the checkout step two page
-    cy.location('pathname').should('equal', '/checkout-step-two.html')
+    cy.location('pathname').should('equal', '/checkout-step-two')
     // the summary page shows the expected number of cart items
     cy.get('.cart_list .cart_item').should('have.length', InventoryData.length)
     // find the "Finish" button and click on it
@@ -78,7 +78,7 @@ describe('Checkout', { viewportHeight: 1200 }, () => {
     // to avoid accidental text match and confirm the button's caption text
     cy.contains('[data-test=finish]', 'Finish').click()
     // we should be on the checkout complete page
-    cy.location('pathname').should('equal', '/checkout-complete.html')
+    cy.location('pathname').should('equal', '/checkout-complete')
     // it shows the checkout complete component
     cy.get('#checkout_complete_container').should('be.visible')
     // the application should have cleared the local storage item "cart-contents"
