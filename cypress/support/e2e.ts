@@ -14,11 +14,7 @@ require('cypress-watch-and-reload/support')
 // @ts-ignore
 import registerCypressGrep from '@bahmutov/cy-grep'
 
-// https://www.npmjs.com/package/@visual-regression-tracker/agent-cypress
-import { addVrtCommands } from '@visual-regression-tracker/agent-cypress'
-
 // import custom commands
 import './commands'
 
 registerCypressGrep()
-addVrtCommands()

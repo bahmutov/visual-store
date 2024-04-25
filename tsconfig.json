@@ -5,8 +5,7 @@
       "cypress",
       "cypress-map",
       "vite/client",
-      "vite-plugin-svgr/client",
-      "@visual-regression-tracker/agent-cypress"
+      "vite-plugin-svgr/client"
     ],
     "target": "es2016",
     "strict": true,

@@ -2,14 +2,6 @@ import { LoginPage } from '@support/pages/login.page'
 import { InventoryPage } from '@support/pages/inventory.page'
 import { LoginInfo } from '..'
 
-before(() => {
-  cy.vrtStart()
-})
-
-after(() => {
-  cy.vrtStop()
-})
-
 describe('Cart', () => {
   // create a small type on the fly using jsdoc comment
   // just to help type check help us
