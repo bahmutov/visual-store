@@ -19,6 +19,7 @@
   "devDependencies": {
     "@actions/core": "^1.10.1",
     "@bahmutov/cy-grep": "^1.9.17",
+    "@visual-regression-tracker/agent-cypress": "^5.7.0",
     "@vitejs/plugin-react": "^4.2.1",
     "console.table": "^0.10.0",
     "cypress": "^13.7.3",

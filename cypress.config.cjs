@@ -11,6 +11,9 @@ const _ = require('lodash')
 const pluralize = require('pluralize')
 const ghCore = require('@actions/core')
 require('console.table')
+const {
+  addVisualRegressionTrackerPlugin,
+} = require('@visual-regression-tracker/agent-cypress')
 
 const fastify = require('fastify')
 
@@ -122,6 +125,31 @@ module.exports = defineConfig({
       'cypress-watch-and-reload': {
         watch: ['src/**'],
       },
+      visualRegressionTracker: {
+        // URL where backend is running
+        // Required
+        apiUrl: 'http://localhost:4200',
+
+        // Project name or ID
+        // Required
+        project: 'visual-store',
+
+        // User apiKey
+        // Required
+        apiKey: 'DEFAULTUSERAPIKEYTOBECHANGED',
+
+        // Current git branch
+        // Required
+        branchName: 'e3-solution',
+
+        // Branch with baseline
+        // Optional - when not set, main branch from project settings is used
+        baselineBranchName: 'e3-solution',
+
+        // Log errors instead of throwing exceptions
+        // Optional - default false
+        enableSoftAssert: true,
+      },
     },
     setupNodeEvents(cypressOn, config) {
       // fix https://github.com/cypress-io/cypress/issues/22428
@@ -137,6 +165,8 @@ module.exports = defineConfig({
 
       // https://github.com/bahmutov/cy-grep
       require('@bahmutov/cy-grep/src/plugin')(config)
+
+      addVisualRegressionTrackerPlugin(on, config)
 
       // Create a local server to receive image approval
       const server = fastify({ logger: true })
