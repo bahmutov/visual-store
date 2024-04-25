@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       # https://github.com/cypress-io/github-action
-      - name: Install 📦
+      - name: E2E 📦
         uses: cypress-io/github-action@v6
         with:
           start: npm start
