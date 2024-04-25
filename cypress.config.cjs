@@ -148,7 +148,7 @@ module.exports = defineConfig({
 
         // Log errors instead of throwing exceptions
         // Optional - default false
-        enableSoftAssert: true,
+        // enableSoftAssert: true,
       },
     },
     setupNodeEvents(cypressOn, config) {

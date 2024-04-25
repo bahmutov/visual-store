@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="@visual-regression-tracker/agent-cypress/dist/types.ts" />
 
 type ImageDiffOptions = {
   /**

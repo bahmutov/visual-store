@@ -2,6 +2,14 @@ import { LoginPage } from '@support/pages/login.page'
 import { InventoryPage } from '@support/pages/inventory.page'
 import { LoginInfo } from '..'
 
+before(() => {
+  cy.vrtStart()
+})
+
+after(() => {
+  cy.vrtStop()
+})
+
 describe('Cart', () => {
   // create a small type on the fly using jsdoc comment
   // just to help type check help us
@@ -40,10 +48,11 @@ describe('Cart', () => {
         .scrollIntoView()
         .should('be.visible')
 
-      cy.imageDiff('1-one-item-in-cart', {
-        mode: 'sync',
-        ignoreElements: ['.header_secondary_container', 'footer'],
-      })
+      cy.vrtTrack('1-one-item-in-cart')
+      // cy.imageDiff('1-one-item-in-cart', {
+      //   mode: 'sync',
+      //   ignoreElements: ['.header_secondary_container', 'footer'],
+      // })
 
       // add the item "Sauce Labs Bolt T-Shirt" to the cart
       // by clicking the button "Add to cart"
@@ -65,10 +74,11 @@ describe('Cart', () => {
       // https://glebbahmutov.com/cypress-examples/#querying
       cy.get('.inventory_item:contains("Remove")').should('have.length', 2)
 
-      cy.imageDiff('2-two-items-in-cart', {
-        mode: 'sync',
-        ignoreElements: ['.header_secondary_container', 'footer'],
-      })
+      cy.vrtTrack('2-two-items-in-cart')
+      // cy.imageDiff('2-two-items-in-cart', {
+      //   mode: 'sync',
+      //   ignoreElements: ['.header_secondary_container', 'footer'],
+      // })
     },
   )
 })
