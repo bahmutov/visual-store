@@ -13,12 +13,9 @@ describe('Regular user', { viewportHeight: 1200 }, () => {
     // "Swag Bot Footer" and confirm it has loaded
     // Tip: use the "naturalWidth" property of the image
     // https://glebbahmutov.com/cypress-examples/recipes/image-loaded.html
-    cy.get('[alt="Swag Bot Footer"]')
-      .should('have.prop', 'naturalWidth')
-      .should('be.greaterThan', 0)
   })
 
-  it.only('loads every product image', () => {
+  it('loads every product image', () => {
     // iterate over every image in the inventory list
     // https://on.cypress.io/get
     // https://on.cypress.io/each
@@ -27,18 +24,11 @@ describe('Regular user', { viewportHeight: 1200 }, () => {
     cy.get('.inventory_container img').each(
       ($image: JQuery<HTMLImageElement>) => {
         // $image is a jQuery object with a single IMG element inside
-        const alt = $image[0].alt
-        expect(
-          $image[0].naturalWidth,
-          `natural width for "${alt}"`,
-        ).to.be.greaterThan(0)
       },
     )
 
     // now use a single visual assertion to capture the inventory list
     // do you see the robot claws picking from the top of the captured image?
     // can you remove that robot first before taking the screenshot
-    cy.get('.peek').invoke('remove')
-    cy.get('.inventory_container').imageDiff('inventory-list')
   })
 })
