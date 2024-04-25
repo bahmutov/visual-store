@@ -26,25 +26,23 @@ jobs:
           context: Visual
           description: Visual tests are running
 
+      # run the visual tests first
       # https://github.com/cypress-io/github-action
       - name: Visual Cypress tests 🧪
         uses: cypress-io/github-action@v6
-        with:
-          start: npm start
-          wait-on: 'http://127.0.0.1:3000'
-          env: grepTags=@visual
+        # ???
 
+      # then run all E2E tests
       # https://github.com/cypress-io/github-action
       - name: All Cypress tests 🧪
         uses: cypress-io/github-action@v6
         # notice the "e2e" identifier for this tep
         # later steps can refer to the outputs of this steps
         # as "steps.e2e.outputs.visual_status" and "steps.e2e.outputs.visual_description
+        # do not install the dependencies again
+        # and no need to start the server again
         id: e2e
-        with:
-          # do not install the dependencies again
-          # and no need to start the server again
-          install: false
+        # ???
 
       # set the final visual status for the current commit
       # using myrotvorets/set-commit-status-action action
