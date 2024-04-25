@@ -36,6 +36,12 @@ describe('Cart', () => {
       .should('have.text', 1)
       .scrollIntoView()
       .should('be.visible')
+
+    cy.imageDiff('1-one-item-in-cart', {
+      mode: 'sync',
+      ignoreElements: ['.header_secondary_container', 'footer'],
+    })
+
     // add the item "Sauce Labs Bolt T-Shirt" to the cart
     // by clicking the button "Add to cart"
     InventoryPage.addItemToCart('Sauce Labs Bolt T-Shirt')
@@ -55,5 +61,10 @@ describe('Cart', () => {
     // on the inventory page
     // https://glebbahmutov.com/cypress-examples/#querying
     cy.get('.inventory_item:contains("Remove")').should('have.length', 2)
+
+    cy.imageDiff('2-two-items-in-cart', {
+      mode: 'sync',
+      ignoreElements: ['.header_secondary_container', 'footer'],
+    })
   })
 })
