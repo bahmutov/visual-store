@@ -1,4 +1,4 @@
-import { LoginInfo } from '..'
+import { LoginInfo } from '.'
 import { LoginPage } from '@support/pages/login.page'
 
 describe('Regular user', { viewportHeight: 1200 }, () => {
