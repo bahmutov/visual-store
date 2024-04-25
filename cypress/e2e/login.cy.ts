@@ -3,7 +3,7 @@ describe('Login', () => {
     cy.visit('/')
   })
 
-  it('prints the rendered font', () => {
+  it('captures the login page', () => {
     // confirm the login form is visible
     // run the custom command "cy.imageDiff"
     // to compare the current page to the gold image
