@@ -25,6 +25,7 @@ Cypress.Commands.add(
   'imageDiff',
   { prevSubject: 'optional' },
   (subject, name: string, options: ImageDiffOptions = { mode: 'sync' }) => {
+    cy.log(`imageDiff **${name}**`)
     const devicePixelRatio = window.devicePixelRatio
 
     const ignoreRegions: IgnoreRegion[] = []
