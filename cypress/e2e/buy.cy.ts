@@ -22,11 +22,15 @@ describe('Store', () => {
     cy.get('.login_wrapper').should('be.visible')
     cy.get(selectors.username).type('standard_user')
     cy.get(selectors.password).type('secret_sauce')
+    cy.imageDiff('login-page')
+
     cy.get(selectors.loginButton).click()
     cy.location('pathname').should('equal', '/inventory')
     cy.get('.inventory_container').should('be.visible')
     cy.contains('button', 'Add to cart').click()
     cy.contains('.shopping_cart_badge', 1).should('be.visible')
+    cy.imageDiff('inventory-page')
+
     cy.get('a.shopping_cart_link').click()
     cy.location('pathname').should('equal', '/cart')
     cy.get('.cart_list').should('be.visible')
@@ -41,5 +45,6 @@ describe('Store', () => {
     cy.contains('button', 'Finish').click()
     cy.location('pathname').should('equal', '/checkout-complete')
     cy.get('.checkout_complete_container').should('be.visible')
+    cy.imageDiff('checkout-complete')
   })
 })
