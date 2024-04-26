@@ -5,7 +5,7 @@ import { InventoryData } from '../utils/InventoryData'
 // that is on the cart page?
 // import the inventory list item CSS
 import './InventoryListItem.css'
-import { ShoppingCart } from 'utils/shopping-cart'
+import { ShoppingCart } from '../utils/shopping-cart'
 
 describe('CartItem', () => {
   beforeEach(() => {

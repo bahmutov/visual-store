@@ -90,6 +90,9 @@ async function diffAnImage(options, config) {
 }
 
 module.exports = defineConfig({
+  // for now Cypress component testing works with Vite v4
+  // and does not support Vite v5 yet
+  // https://github.com/cypress-io/cypress/issues/28347
   e2e: {
     // baseUrl, etc
     baseUrl: 'http://localhost:3000',
@@ -302,7 +305,13 @@ module.exports = defineConfig({
     },
   },
 
-  // for now Cypress component testing works with Vite v4
-  // and does not support Vite v5 yet
-  // https://github.com/cypress-io/cypress/issues/28347
+  component: {
+    specPattern: 'src/components/**/*.cy.jsx',
+    supportFile: 'cypress/support/component.jsx',
+    devServer: {
+      framework: 'react',
+      bundler: 'vite',
+      viteConfig: require('./vite.config.ts'),
+    },
+  },
 })

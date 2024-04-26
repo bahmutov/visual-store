@@ -25,6 +25,7 @@
     "cypress/support/**/*.ts",
     "cypress/e2e/**/*.js",
     "cypress/e2e/**/*.ts",
-    "src/**/*.cy.js"
+    "src/**/*.cy.js",
+    "src/components/**/*.cy.jsx"
   ]
 }
