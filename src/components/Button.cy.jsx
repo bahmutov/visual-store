@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from './Button'
 
-it('shows a button', () => {
+it.only('shows a button', () => {
   // mount the "Button" component and pass
   // the prop "label" with value "Test button"
   // Tip: use the cy.mount command, see
@@ -13,6 +13,15 @@ it('shows a button', () => {
   // https://on.cypress.io/contains
   // and make a visual assertion "button-default"
   cy.contains('button', 'Test button')
+  // before taking the screenshot, make the viewport just enough
+  // to show the button by itself
+  // Tip: get the getBoundingClientRect of the "html" element
+  // and set the viewport to its width and height
+  // https://on.cypress.io/viewport
+  cy.get('html').then(($el) => {
+    const rect = $el[0].getBoundingClientRect()
+    cy.viewport(Math.ceil(rect.width), Math.ceil(rect.height))
+  })
   cy.imageDiff('button-default')
 })
 
