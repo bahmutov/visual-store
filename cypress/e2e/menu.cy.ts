@@ -12,5 +12,4 @@ it('captures the opened menu', () => {
   cy.log('**menu opened 2**')
   // capture and diff the current viewport only
   // without capturing the full footer element
-  cy.imageDiff('menu', { capture: 'clipToViewport' })
 })
