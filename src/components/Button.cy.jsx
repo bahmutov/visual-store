@@ -1,9 +1,17 @@
 import React from 'react'
 import Button from './Button'
 
-it('shows a button', () => {
+it.only('shows a button', () => {
+  // mount the "Button" component and pass
+  // the prop "label" with value "Test button"
+  // Tip: use the cy.mount command, see
+  // https://on.cypress.io/mount
+  // and cypress/support/component.jsx
   cy.mount(<Button label="Test button" />)
+  // confirm the button with text "Test button"
+  // is present on the page
   cy.contains('button', 'Test button')
+  cy.imageDiff('button-default')
 })
 
 it('calls the click prop', () => {
