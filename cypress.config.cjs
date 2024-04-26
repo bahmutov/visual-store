@@ -302,39 +302,7 @@ module.exports = defineConfig({
     },
   },
 
-  component: {
-    // TODO: update to React + Vite
-    devServer: {
-      framework: 'create-react-app',
-      bundler: 'webpack',
-      webpackConfig: {
-        resolve: {
-          alias: {
-            '@cypress': path.resolve(__dirname, 'cypress'),
-          },
-        },
-        mode: 'development',
-        devtool: false,
-        module: {
-          rules: [
-            // application and Cypress files are bundled like React components
-            // and instrumented using the babel-plugin-istanbul
-            {
-              test: /\.jsx?$/,
-              // do not instrument node_modules
-              // or Cypress component specs
-              exclude: /node_modules|\.cy\.js/,
-              use: {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['@babel/preset-env', '@babel/preset-react'],
-                  plugins: ['istanbul'],
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
+  // for now Cypress component testing works with Vite v4
+  // and does not support Vite v5 yet
+  // https://github.com/cypress-io/cypress/issues/28347
 })

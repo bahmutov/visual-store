@@ -40,7 +40,7 @@
     "start-server-and-test": "^2.0.0",
     "stop-only": "^3.3.1",
     "typescript": "^5.4.5",
-    "vite": "^5.2.9",
+    "vite": "^4.5.3",
     "vite-plugin-svgr": "^4.2.0"
   },
   "scripts": {
@@ -54,7 +54,6 @@
     "predev:build": "vite build",
     "ci": "start-test 3000",
     "lint": "tsc --noEmit --pretty",
-    "clean": "rm -rf .nyc_output coverage",
     "cc-badge": "update-badge",
     "only": "stop-only --folder cypress/e2e --folder src",
     "only:warn": "stop-only --warn --folder cypress/e2e --folder src",
@@ -74,17 +73,6 @@
       "last 1 firefox version",
       "last 1 safari version",
       "ie 11"
-    ]
-  },
-  "nyc": {
-    "all": true,
-    "include": [
-      "src/**/*.js",
-      "src/**/*.jsx"
-    ],
-    "exclude": [
-      "src/**/*.cy.js",
-      "src/service*.js"
     ]
   }
 }
