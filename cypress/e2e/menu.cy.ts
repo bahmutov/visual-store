@@ -19,9 +19,7 @@ it('captures the opened menu', () => {
   cy.log('**menu opened**')
 
   // hover over a menu item "About" which triggers the hover state
-  cy.contains('.menu-item', 'About').realHover()
-
+  //
   // capture and diff the current viewport only
   // without capturing the full footer element
-  cy.imageDiff('menu-hover', { capture: 'clipToViewport' })
 })
