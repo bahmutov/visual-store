@@ -137,7 +137,7 @@ Cypress.Commands.add(
             // Tip: make sure to throw an error at the end to fail the test
             if (result.match === true) {
               if ('newImage' in result && result.newImage) {
-                cy.log('✅ new image')
+                cy.log('🖼️ new gold image')
               } else {
                 cy.log('✅ images match')
                 if (result.reason) {
