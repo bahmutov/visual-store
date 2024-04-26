@@ -4,12 +4,20 @@
 type ImageDiffOptions = {
   /**
    * Synchronous mode takes a screenshot and immediately compares it to the gold image.
+   * @default 'sync'
    */
-  mode: 'sync' | 'async'
+  mode?: 'sync' | 'async'
   /**
    * CSS selector or an array of CSS selectors to ignore when comparing images
    */
   ignoreElements?: string | string[]
+  /**
+   * By default, we capture the entire application in pieces and then
+   * stitch the pieces together. This is necessary when the application
+   * is too large for the viewport. If you want to _only_ capture the
+   * application's viewport, set this option to "clipToViewport".
+   */
+  capture?: 'clipToViewport'
 }
 
 declare namespace Cypress {

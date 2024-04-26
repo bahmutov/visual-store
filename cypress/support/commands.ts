@@ -59,16 +59,37 @@ Cypress.Commands.add(
       }
     }
 
+    const screenshotOptions: Partial<
+      Cypress.ScreenshotOptions & Cypress.Loggable
+    > = {
+      overwrite: true,
+      capture: options.capture === 'clipToViewport' ? 'runner' : 'viewport',
+      onAfterScreenshot($el, screenshot) {
+        screenshotPath = screenshot.path
+      },
+      log: false,
+    }
+
+    if (options.capture === 'clipToViewport') {
+      // we will capture the full screenshot
+      // but then we need to clip it back to
+      // the application under test
+      const applicationIframe =
+        window.parent.document.querySelector('.aut-iframe')
+      console.log('app iframe', applicationIframe)
+      const { x, y, width, height } = applicationIframe!.getBoundingClientRect()
+      screenshotOptions.clip = {
+        x,
+        y,
+        width,
+        height,
+      }
+    }
+
     // grab the real screenshot path
     let screenshotPath: string
     ;(subject ? cy.wrap(subject, { log: false }) : cy)
-      .screenshot(name, {
-        overwrite: true,
-        onAfterScreenshot($el, screenshot) {
-          screenshotPath = screenshot.path
-        },
-        log: false,
-      })
+      .screenshot(name, screenshotOptions)
       // @ts-ignore
       .then(() => {
         const rootFolder = Cypress.config('projectRoot')
