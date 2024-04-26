@@ -61,7 +61,9 @@ export const InventoryItem = (props) => {
 
     ShoppingCart.addItem(itemId)
     setItemInCart(true)
-    dataLayer.push({ event: 'addToCart', itemId })
+    if (typeof dataLayer !== 'undefined') {
+      dataLayer.push({ event: 'addToCart', itemId })
+    }
   }
 
   const removeFromCart = (itemId) => {
@@ -74,7 +76,9 @@ export const InventoryItem = (props) => {
 
     ShoppingCart.removeItem(itemId)
     setItemInCart(false)
-    dataLayer.push({ event: 'removeFromCart', itemId })
+    if (typeof dataLayer !== 'undefined') {
+      dataLayer.push({ event: 'removeFromCart', itemId })
+    }
   }
 
   const ButtonType = ({ id, item, itemInCart }) => {

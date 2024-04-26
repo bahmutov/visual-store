@@ -21,11 +21,12 @@
     }
   },
   "include": [
-    "cypress/support/component.js",
+    "cypress/support/component.jsx",
     "cypress/support/**/*.ts",
     "cypress/e2e/**/*.js",
     "cypress/e2e/**/*.ts",
     "src/**/*.cy.js",
-    "src/components/**/*.cy.jsx"
+    "src/components/**/*.cy.jsx",
+    "src/pages/**/*.cy.jsx"
   ]
 }

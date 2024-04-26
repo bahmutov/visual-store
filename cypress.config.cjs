@@ -306,7 +306,7 @@ module.exports = defineConfig({
   },
 
   component: {
-    specPattern: 'src/components/**/*.cy.jsx',
+    specPattern: ['src/components/**/*.cy.jsx', 'src/pages/**/*.cy.jsx'],
     supportFile: 'cypress/support/component.jsx',
     devServer: {
       framework: 'react',

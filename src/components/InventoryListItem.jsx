@@ -21,7 +21,9 @@ const InventoryListItem = (props) => {
 
     ShoppingCart.addItem(itemId)
     setItemInCart(true)
-    dataLayer.push({ event: 'addToCart', itemId })
+    if (typeof dataLayer !== 'undefined') {
+      dataLayer.push({ event: 'addToCart', itemId })
+    }
   }
 
   const removeFromCart = (itemId) => {
@@ -34,7 +36,9 @@ const InventoryListItem = (props) => {
 
     ShoppingCart.removeItem(itemId)
     setItemInCart(false)
-    dataLayer.push({ event: 'removeFromCart', itemId })
+    if (typeof dataLayer !== 'undefined') {
+      dataLayer.push({ event: 'removeFromCart', itemId })
+    }
   }
 
   let linkId = id

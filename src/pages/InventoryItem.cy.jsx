@@ -4,7 +4,7 @@ import { InventoryData } from '../utils/InventoryData'
 import { setCredentials, isProblemUser } from '../utils/Credentials'
 import { ShoppingCart } from '../utils/shopping-cart'
 // the "@cypress" Webpack alias is defined in the "cypress.config.js"
-import { InventoryPage } from '@cypress/support/pages/inventory.page'
+import { InventoryPage } from '../../cypress/support/pages/inventory.page'
 
 describe('InventoryItem', { viewportHeight: 1000 }, () => {
   it('shows an item', () => {
