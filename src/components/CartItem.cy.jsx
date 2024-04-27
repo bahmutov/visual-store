@@ -31,6 +31,7 @@ describe('CartItem', () => {
     cy.contains('button', 'Remove').click()
     // confirm the entire cart item is gone
     cy.get('.cart_item').should('not.exist')
+    cy.get('.removed_cart_item')
     // confirm the spy was called with the correct arguments
     cy.get('@removeItem').should('have.been.calledWithExactly', item.id)
   })
