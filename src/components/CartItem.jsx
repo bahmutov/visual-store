@@ -43,7 +43,7 @@ const CartItem = ({ item, history, showButton }) => {
           value={shoppingCartItem.n}
           data-test="CartQuantity"
           onChange={(evt) => {
-            console.log(evt.target.valueAsNumber)
+            // console.log(evt.target.valueAsNumber)
             const n = Number.isNaN(evt.target.valueAsNumber)
               ? 0
               : evt.target.valueAsNumber
