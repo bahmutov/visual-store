@@ -100,7 +100,13 @@ Cypress.Commands.add(
           .replaceAll('/', '-')
           .replaceAll('.', '-')
 
-        const goldPath = path.join(goldImages, goldNameFolder, Cypress.platform)
+        const mode = Cypress.config('isTextTerminal') ? 'run' : 'open'
+        const goldPath = path.join(
+          goldImages,
+          goldNameFolder,
+          Cypress.platform,
+          mode,
+        )
         const diffName = path.join(goldPath, `${name}.png`)
         const relativeScreenshotPath = path.relative(rootFolder, screenshotPath)
 
