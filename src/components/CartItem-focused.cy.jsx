@@ -17,37 +17,39 @@ describe('CartItem', () => {
   // a number, like "00-component", "01-focused", "02-edited"
   // to make reviewing them easier
 
+  // Tip 2: in the interactive mode "cypress open"
+  // the browser must be visible in order for the focused
+  // state to work. If you are editing the test file
+  // while the browser is running in the background,
+  // the focused state is NOT going to work
   it('changes the item quantity', () => {
     // pick an item from the inventory list
     const item = InventoryData[2]
     // mount the cart item (with the router), passing the item as a prop
     cy.mountWithRouter(<CartItem item={item} />)
     cy.get('.cart_item').should('be.visible')
+    cy.imageDiff('00-CartItem')
     // confirm the item is on the page
     // and the quantity is 1 initially
     // and take an image diff with the input element focused
     // https://on.cypress.io/focus
-    cy.get('.cart_item .cart_quantity').should('have.value', 1)
-    cy.imageDiff('00-CartItem')
+    cy.get('.cart_item .cart_quantity').should('have.value', 1).focus()
+    cy.imageDiff('01-CartItem-focused')
     // change the quantity to 5
     // https://on.cypress.io/type
     cy.get('.cart_item .cart_quantity').type('{selectAll}5')
-    // confirm the input field has the new value 5
     // and take another visual diff
-    // Tip: to avoid focus changing between "cypress open" and "cypress run"
-    // remove the focus from the element after typing
-    // https://on.cypress.io/blur
-    cy.get('.cart_item .cart_quantity').should('have.value', 5).blur()
-    cy.imageDiff('01-CartItem-quantity-5')
+    // confirm the input field has the new value 5
+    cy.get('.cart_item .cart_quantity').should('have.value', 5)
+    cy.imageDiff('02-CartItem-quantity-5')
 
-    // try to delete the number text to cause an invalid number
+    // try to delete the text to cause invalid number
     cy.get('.cart_item .cart_quantity')
       // https://on.cypress.io/type
       .type('{selectAll}{del}')
     // confirm the input field changes the value to 0
-    // again: make sure to blur the input field to avoid focus changing
-    cy.get('.cart_item .cart_quantity').should('have.value', 0).blur()
+    cy.get('.cart_item .cart_quantity').should('have.value', 0)
     // and take another screenshot
-    cy.imageDiff('02-CartItem-quantity-0')
+    cy.imageDiff('03-CartItem-quantity-0')
   })
 })
