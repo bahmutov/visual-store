@@ -17,15 +17,14 @@ describe('CartItem', () => {
     // find the input element with class "cart_quantity" and focus it
     // https://on.cypresss.io/focus
     // confirm the element is focused using an assertion "have.focus"
-    cy.get('input.cart_quantity').focus().should('have.focus')
+    //
     // before taking a screenshot, enable the focus emulation
     // using CDP protocol. This ensures that even if the browser
     // window itself is not focused (in the background),
     // the captured screenshot will show the focused element
     // https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
     // https://github.com/bahmutov/cypress-cdp
-    cy.CDP('Emulation.setFocusEmulationEnabled', { enabled: true })
+    //
     // take the image diff of the current page
-    cy.imageDiff('focused-input-element')
   })
 })
