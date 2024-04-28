@@ -12,27 +12,20 @@ describe('CartItem', () => {
     ShoppingCart.setCartContents([{ id: item.id, n: 1 }])
   })
 
-  it('removes the item from the cart', () => {
-    // mount the cart item (with the router), passing the item as a prop
-    // and pass the "showButton: true" prop
-    cy.mountWithRouter(<CartItem item={item} showButton={true} />)
-    // confirm using a functional assertion that "Remove" button is visible
-    cy.contains('button', 'Remove').should('be.visible')
-    // take a snapshot of the cart item
-    cy.imageDiff('CartItem-remove-button')
-
-    // spy on the "ShoppingCart.removeItem" method
-    // https://on.cypress.io/spy
-    // and give the spy an alias "removeItem"
-    // https://on.cypress.io/as
-    // https://glebbahmutov.com/cypress-examples/commands/spies-stubs-clocks.html
-    cy.spy(ShoppingCart, 'removeItem').as('removeItem')
-    // click the "Remove" button
-    cy.contains('button', 'Remove').click()
-    // confirm the entire cart item is gone
-    cy.get('.cart_item').should('not.exist')
-    cy.get('.removed_cart_item')
-    // confirm the spy was called with the correct arguments
-    cy.get('@removeItem').should('have.been.calledWithExactly', item.id)
+  it('tests the focused input element', () => {
+    cy.mountWithRouter(<CartItem item={item} />)
+    // find the input element with class "cart_quantity" and focus it
+    // https://on.cypresss.io/focus
+    // confirm the element is focused using an assertion "have.focus"
+    cy.get('input.cart_quantity').focus().should('have.focus')
+    // before taking a screenshot, enable the focus emulation
+    // using CDP protocol. This ensures that even if the browser
+    // window itself is not focused (in the background),
+    // the captured screenshot will show the focused element
+    // https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
+    // https://github.com/bahmutov/cypress-cdp
+    cy.CDP('Emulation.setFocusEmulationEnabled', { enabled: true })
+    // take the image diff of the current page
+    cy.imageDiff('focused-input-element')
   })
 })
